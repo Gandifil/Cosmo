@@ -26,6 +26,7 @@ namespace Cosmo {
             inline void Update(sf::Time dt)
             {
                 bullets.Update(dt);
+                players.Update(dt);
 
                 // Remove Deads calls
                 players.RemoveDeads();

@@ -6,7 +6,7 @@
 namespace Cosmo
 {
 	namespace Entity {
-		class Starship : public IDestroyable, public ISpriteOwner {
+		class Starship : public IDestroyable, public ISpriteOwner, public IUpdateable {
 		public:
 			Starship(int maxHP, const sf::Texture &texture, const sf::Vector2f &vec) :
 					ISpriteOwner{texture, vec},

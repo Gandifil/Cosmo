@@ -1,7 +1,5 @@
 #include "Cruiser.h"
 #include "../Info/Config.h"
-//#include "Service.h"
-#include "../Info/Manager.h"
 
 using namespace Cosmo::Info;
 
@@ -25,7 +23,13 @@ void Cosmo::Entity::Cruiser::Move(sf::Time dt, Cosmo::Control::Direction d)
 void Cosmo::Entity::Cruiser::MainShoot()
 {
 	auto pos = sprite.getPosition();
-//	Entity::Service::instance->bullets.Add(
-//			new Bullet{Info::Manager::Instance().Textures["laserGreen02.png"],
-//					  pos, pos + sf::Vector2f{- 10.f, 0.f}});
+
+	leftGun.Fire(pos);
+	rightGun.Fire(pos);
+}
+
+void Cosmo::Entity::Cruiser::Update(sf::Time dt)
+{
+	leftGun.Update(dt);
+	rightGun.Update(dt);
 }
