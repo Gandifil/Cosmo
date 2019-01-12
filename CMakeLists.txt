@@ -4,8 +4,8 @@ cmake_minimum_required(VERSION 3.9)
 project(Cosmo VERSION 0.0.1)
 set(CMAKE_CXX_STANDARD 14)
 
-set(SFML_ROOT_PREFIX "C:/SFML" CACHE STRING "Root of SFML library. Must has include, lib and bin folder.")
-set(TGUI_ROOT_PREFIX "C:/TGUI" CACHE STRING "Root of TGUI library. Must has include, lib and bin folder.")
+set(SFML_ROOT_PREFIX "C:/SFML-2.5.1" CACHE STRING "Root of SFML library. Must has include, lib and bin folder.")
+set(TGUI_ROOT_PREFIX "C:/TGUI-0.8" CACHE STRING "Root of TGUI library. Must has include, lib and bin folder.")
 
 set(SFML_DIR "${SFML_ROOT_PREFIX}/lib/cmake/SFML")
 set(TGUI_DIR "${TGUI_ROOT_PREFIX}/lib/cmake/TGUI")
