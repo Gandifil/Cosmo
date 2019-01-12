@@ -11,13 +11,19 @@ using namespace Cosmo::Entity;
 
 namespace Cosmo {
     namespace Entity {
-    class Service: public sf::Drawable{
+    class Service{
         public:
             Handler<Starship> players;
 
-            virtual void draw(sf::RenderTarget &wnd, sf::RenderStates states) const override
+            inline void Render(sf::RenderWindow &wnd) const
             {
-                players.Draw(wnd, states);
+                players.Draw(wnd, sf::RenderStates::Default);
+            }
+
+            inline void Update(sf::Time dt)
+            {
+                // Remove Deads calls
+                //players.RemoveDeads();
             }
         private:
 

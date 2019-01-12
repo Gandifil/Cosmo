@@ -1,16 +1,15 @@
 #pragma once
-#include "Drawable.h"
+#include "ISpriteOwner.h"
+#include "IDestroyable.h"
+#include "IUpdateable.h"
 
 namespace Cosmo
 {
 	namespace Entity {
-		class Starship : public Drawable {
-		private:
-			int hp;
-
+		class Starship : public IDestroyable, public ISpriteOwner {
 		public:
 			Starship(int maxHP, const sf::Texture &texture, const sf::Vector2f &vec) :
-					Drawable{texture, vec},
+					ISpriteOwner{texture, vec},
 					hp{maxHP} {}
 
 			inline int getHP() { return hp; }
@@ -24,6 +23,9 @@ namespace Cosmo
 				hp += value;
 				// if (type.maxHP < hp) hp = type.maxHP;
 			}
+
+		private:
+			int hp;
 		};
 	}
 }

@@ -3,6 +3,7 @@
 #include "../Control/Keyboard.h"
 #include "../Entity/Cruiser.h"
 #include "../Control/Service.h"
+#include "../Entity/Service.h"
 #include <forward_list>
 #include <string>
 
@@ -15,11 +16,12 @@ namespace Cosmo
 		private:
 			Control::Service controlling;
 			Control::Keyboard kb;
-			Cosmo::Entity::Cruiser player;
-			sf::RenderWindow &window;
+			sf::RenderWindow &renderWindow;
+			Entity::Cruiser *player, pl1;
+			Entity::Service entities;
 
 		public:
-			Game(sf::RenderWindow &window);
+			Game(sf::RenderWindow &renderWindow);
 
 			virtual int HandleEvent(sf::Event event) override;
 

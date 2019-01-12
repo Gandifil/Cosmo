@@ -1,4 +1,6 @@
 #pragma once
+
+#include <assert.h>
 #include "SFML/Window.hpp"
 #include "IControllable.h"
 
@@ -12,7 +14,9 @@ namespace Cosmo
 			IControllable &actor;
 
 		public:
-			Controller(IControllable &actor) : actor{ actor } {}
+			Controller(IControllable &actor) : actor{ actor } {
+				assert(&actor != nullptr);
+			}
 			virtual bool onHandleEvent(sf::Event event) = 0;
 			virtual void ControlUpdate(sf::Time dt) = 0;
 		};

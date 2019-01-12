@@ -12,22 +12,24 @@ int Game::HandleEvent(sf::Event event)
 void Game::Update(sf::Time dt)
 {
 	controlling.Update(dt);
-	//for (auto&& obj : starship)
-	//	obj.Update(dt);
+
+	entities.Update(dt);
 }
 
 void Game::Render()
 {
-	window.draw(player);
+	entities.Render(renderWindow);
+	renderWindow.draw(pl1);
 }
 
 Game::Game(sf::RenderWindow& window):
-	window{window},
-	player{ 100, Cosmo::Info::Manager::Instance().Textures["starship1.png"], {500, 500} },
-	kb{player},
+	renderWindow{window},
+	player{ new Cruiser{100, Cosmo::Info::Manager::Instance().Textures["starship1.png"], {500, 500} }},
+	pl1{100, Cosmo::Info::Manager::Instance().Textures["starship1.png"], {500, 500} },
+	kb{*player},
 	controlling{ &kb }
 {
-	//starship.push_front();
+	entities.players.Add(player);
 }
 
 
