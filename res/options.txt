@@ -1,0 +1,4 @@
+// это комментарии
+WWindow = 1920
+HWindow = 1000
+isFullScreen = 0
