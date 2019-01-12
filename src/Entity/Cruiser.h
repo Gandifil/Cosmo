@@ -12,7 +12,7 @@ namespace Cosmo
 
 			virtual ~ Cruiser() override {}
 
-			virtual void MainShoot() override {}
+			virtual void MainShoot() override;
 
 			virtual void AltShoot() override {}
 

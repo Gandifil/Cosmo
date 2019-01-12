@@ -3,6 +3,7 @@
 //
 #include "Handler.h"
 #include "Starship.h"
+#include "Bullet.h"
 
 #ifndef COSMO_SERVICE_H
 #define COSMO_SERVICE_H
@@ -14,17 +15,24 @@ namespace Cosmo {
     class Service{
         public:
             Handler<Starship> players;
+            Handler<Bullet> bullets;
 
             inline void Render(sf::RenderWindow &wnd) const
             {
+                bullets.Draw(wnd, sf::RenderStates::Default);
                 players.Draw(wnd, sf::RenderStates::Default);
             }
 
             inline void Update(sf::Time dt)
             {
+                bullets.Update(dt);
+
                 // Remove Deads calls
-                //players.RemoveDeads();
+                players.RemoveDeads();
+                bullets.RemoveDeads();
             }
+
+            static Service *instance;
         private:
 
         };
