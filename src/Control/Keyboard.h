@@ -30,7 +30,7 @@ namespace Cosmo
 					else return false;
 				} else return false;
 
-				return true;
+				return false;
 			}
 
 			virtual void ControlUpdate(sf::Time dt) override {
