@@ -19,17 +19,13 @@ void Game::Update(sf::Time dt)
 void Game::Render()
 {
 	entities.Render(renderWindow);
-	renderWindow.draw(pl1);
 }
 
-Game::Game(sf::RenderWindow& window):
+Game::Game(sf::RenderWindow& window, const Parameters& params):
 	renderWindow{window},
-	player{ new Cruiser{100, Cosmo::Info::Manager::Instance().Textures["starship1.png"], {500, 500} }},
-	pl1{100, Cosmo::Info::Manager::Instance().Textures["starship1.png"], {500, 500} },
-	kb{*player},
-	controlling{ &kb }
+	controlling{params.controlInit}
 {
-	entities.players.Add(player);
+	entities.players.Add(params.cruiser);
 }
 
 

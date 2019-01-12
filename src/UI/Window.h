@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Info/Config.h"
+#include "../Info/Config.h"
 #include "StarField.h"
 #include "MainMenu.h"
 

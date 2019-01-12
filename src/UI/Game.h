@@ -4,6 +4,7 @@
 #include "../Entity/Cruiser.h"
 #include "../Control/Service.h"
 #include "../Entity/Service.h"
+#include "../Info/Manager.h"
 #include <forward_list>
 #include <string>
 
@@ -13,23 +14,36 @@ namespace Cosmo
 {
 	namespace UI {
 		class Game : public Scene {
+        public:
+		    struct Parameters
+            {
+		        Parameters()
+                {
+                    cruiser = new Cruiser{100, Cosmo::Info::Manager::Instance().Textures["starship1.png"], {500, 500} };
+                    controlInit = new Control::Keyboard{*cruiser};
+                }
+
+		        Entity::Cruiser *cruiser;
+		        Control::Controller *controlInit;
+            };
+
+            Game(sf::RenderWindow &renderWindow, const Parameters& params);
+
+			explicit Game(sf::RenderWindow &renderWindow): Game{renderWindow, Parameters()} {};
+
+            virtual int HandleEvent(sf::Event event) override;
+
+            virtual void Update(sf::Time dt) override;
+
+            virtual void Render() override;
+
+            ~Game();
+
 		private:
+            sf::RenderWindow &renderWindow;
 			Control::Service controlling;
-			Control::Keyboard kb;
-			sf::RenderWindow &renderWindow;
-			Entity::Cruiser *player, pl1;
 			Entity::Service entities;
 
-		public:
-			Game(sf::RenderWindow &renderWindow);
-
-			virtual int HandleEvent(sf::Event event) override;
-
-			virtual void Update(sf::Time dt) override;
-
-			virtual void Render() override;
-
-			~Game();
 		};
 	}
 }
