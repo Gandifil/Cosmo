@@ -23,10 +23,10 @@ void Game::Render()
 
 Game::Game(sf::RenderWindow& window, const Parameters& params):
 	renderWindow{window},
-	controlling{params.controlInit}
+	controlling{params.controlInit},
+	entities{Entity::Service::Instance()}
 {
 	entities.players.Add(params.cruiser);
-	Entity::Service::instance = &entities;
 }
 
 Game::~Game()

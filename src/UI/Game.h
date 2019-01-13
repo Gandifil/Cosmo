@@ -44,8 +44,7 @@ namespace Cosmo
 		private:
             sf::RenderWindow &renderWindow;
 			Control::Service controlling;
-			Entity::Service entities;
-
+			Entity::Service& entities;
 		};
 	}
 }

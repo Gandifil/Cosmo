@@ -33,7 +33,11 @@ namespace Cosmo {
                 bullets.RemoveDeads();
             }
 
-            static Service *instance;
+            static Service& Instance()
+            {
+                static Service instance;
+                return instance;
+            }
         private:
 
         };
