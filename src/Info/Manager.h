@@ -36,11 +36,14 @@ namespace Cosmo
 				lua.new_usertype<WeaponBox>("WeaponBox",
 						sol::constructors<WeaponBox(float reload, const VectorBox& shift, const VectorBox& dir)>());
 
+				lua.new_usertype<StarshipBox>("StarshipBox",
+											 sol::constructors<CruiserBox(const TextureBox& tbox,
+																		  const SpeedBox& sbox,
+																		  int maxhp)>());
 				lua.new_usertype<CruiserBox>("CruiserBox",
-                     sol::constructors<CruiserBox(const TextureBox& tbox,
+                     sol::constructors<CruiserBox(const StarshipBox& ssbox,
 												  const WeaponBox& leftWeap,
-												  const WeaponBox& rightWeap,
-												  const SpeedBox& sbox)>());
+												  const WeaponBox& rightWeap)>());
 
                 lua["addBox"] = [&](const std::string& name, const CruiserBox& box)
                 {

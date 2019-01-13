@@ -11,13 +11,11 @@ TextureBox::TextureBox(const std::string& name):
 {
 };
 
-CruiserBox::CruiserBox(const TextureBox& tbox,
+CruiserBox::CruiserBox(const StarshipBox& ssbox,
                        const WeaponBox& leftWeap,
-                       const WeaponBox& rightWeap,
-                       const SpeedBox& sbox):
-    texture{ tbox.texture},
+                       const WeaponBox& rightWeap):
     leftWeapon{leftWeap},
     rightWeapon{rightWeap},
-    speed{sbox}
+    starshipBox{ssbox}
 {
 };

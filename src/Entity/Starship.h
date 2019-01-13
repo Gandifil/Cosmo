@@ -2,15 +2,17 @@
 #include "ISpriteOwner.h"
 #include "IDestroyable.h"
 #include "IUpdateable.h"
+#include "../Info/TypeBoxes.h"
 
 namespace Cosmo
 {
 	namespace Entity {
 		class Starship : public IDestroyable, public ISpriteOwner, public IUpdateable {
 		public:
-			Starship(int maxHP, const sf::Texture &texture, const sf::Vector2f &vec) :
-					ISpriteOwner{texture, vec},
-					hp{maxHP} {}
+			Starship(const sf::Vector2f &vec, const Info::StarshipBox& box) :
+					ISpriteOwner{box.texture, vec},
+					hp{box.maxHP},
+					speed{box.speed}{}
 
 			inline int getHP() { return hp; }
 
@@ -23,6 +25,9 @@ namespace Cosmo
 				hp += value;
 				// if (type.maxHP < hp) hp = type.maxHP;
 			}
+
+		protected:
+			Info::SpeedBox speed;
 
 		private:
 			int hp;

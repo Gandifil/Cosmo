@@ -12,8 +12,8 @@ namespace Cosmo
     {
         struct SpeedBox
         {
-            SpeedBox(int top, int down, int side): values{top, down, side}{}
-            int values[3];
+            SpeedBox(int top, int down, int side): top{top}, down{down}, side{side}{}
+            int top, down, side;
         };
 
         struct TextureBox
@@ -42,16 +42,29 @@ namespace Cosmo
             sf::Vector2f shift, direction;
         };
 
-        struct CruiserBox
+        struct StarshipBox
         {
-            CruiserBox(const TextureBox& tbox,
-                       const WeaponBox& leftWeap,
-                       const WeaponBox& rightWeap,
-                       const SpeedBox& sbox);
+            StarshipBox(const TextureBox& tbox,
+                        const SpeedBox& sbox,
+                        int maxhp):
+                texture{tbox.texture},
+                maxHP{maxhp},
+                speed{sbox}
+            {};
 
             const sf::Texture& texture;
-            WeaponBox leftWeapon, rightWeapon;
+            int maxHP;
             SpeedBox speed;
+        };
+
+        struct CruiserBox
+        {
+            CruiserBox(const StarshipBox& ssbox,
+                       const WeaponBox& leftWeap,
+                       const WeaponBox& rightWeap);
+
+            WeaponBox leftWeapon, rightWeapon;
+            StarshipBox starshipBox;
         };
     }
 }

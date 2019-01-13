@@ -10,10 +10,9 @@ namespace Cosmo
 		public:
 
             Cruiser(const sf::Vector2f &vec, const Info::CruiserBox& box) :
-                    Starship{100, box.texture, vec},
+                    Starship{vec, box.starshipBox},
                     leftGun{box.leftWeapon},
-                    rightGun{box.rightWeapon},
-                    speed{box.speed}
+                    rightGun{box.rightWeapon}
 			{}
 
 			virtual ~ Cruiser() override {}
@@ -32,7 +31,6 @@ namespace Cosmo
 
 	    private:
 	        Utils::Weapon leftGun, rightGun;
-	        Info::SpeedBox speed;
 		};
 	}
 }
