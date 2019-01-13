@@ -19,7 +19,9 @@ namespace Cosmo
             {
 		        Parameters()
                 {
-                    cruiser = new Cruiser{100, Cosmo::Info::Manager::Instance().Textures["starship1.png"], {500, 500} };
+					Info::Manager& m = Info::Manager::Instance();
+					m.Loading();
+                    cruiser = new Cruiser{100, m.Cruisers["first"].texture.texture, {500, 500} };
                     controlInit = new Control::Keyboard{*cruiser};
                 }
 

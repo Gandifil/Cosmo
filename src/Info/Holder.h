@@ -9,6 +9,24 @@ namespace Cosmo
 	namespace Info
 	{
 		template<typename T, typename G>
+		struct VoidGuard
+		{
+			static T* Generate(const std::string& index)
+			{
+				return G()(index);
+			}
+		};
+
+		template<typename T>
+		struct VoidGuard<T, void>
+		{
+			static T* Generate(const std::string& index)
+			{
+				throw new std::logic_error("NO GENERATE TYPE");
+			}
+		};
+
+		template<typename T, typename G>
 		class Holder final
 		{
 		public:
@@ -17,15 +35,15 @@ namespace Cosmo
 				auto found = resources.find(index);
 
 				if (found == resources.end())
-					return Add(index, std::unique_ptr<T>(G()(index)));
+					return Add(index, VoidGuard<T, G>().Generate(index));
 				else
 					return *found->second;
 			}
 
-			const T& Add(const std::string& index, std::unique_ptr<T> resource)
+			const T& Add(const std::string& index, T *resource)
 			{
 				const T& result = *resource;
-				resources.insert(std::make_pair(index, std::move(resource)));
+				resources.insert(std::make_pair(index, std::unique_ptr<T>(resource)));
 				return result;
 			}
 		private:

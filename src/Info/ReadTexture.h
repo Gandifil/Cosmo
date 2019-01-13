@@ -11,6 +11,7 @@ namespace Cosmo
 			{
 				sf::Texture* texture = new sf::Texture{};
 				texture->loadFromFile(index);
+
 				return texture;
 			}
 		};
