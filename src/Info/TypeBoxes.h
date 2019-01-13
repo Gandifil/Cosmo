@@ -36,7 +36,7 @@ namespace Cosmo
             WeaponBox(float reload, const VectorBox& shift, const VectorBox& dir):
                 reload{reload},
                 shift{shift.vector},
-                direction{shift.vector}{}
+                direction{dir.vector}{}
 
             float reload;
             sf::Vector2f shift, direction;
@@ -49,7 +49,7 @@ namespace Cosmo
                        const WeaponBox& rightWeap,
                        const SpeedBox& sbox);
 
-            TextureBox texture;
+            const sf::Texture& texture;
             WeaponBox leftWeapon, rightWeapon;
             SpeedBox speed;
         };

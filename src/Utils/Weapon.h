@@ -16,8 +16,8 @@ namespace Cosmo
         class Weapon final
         {
         public:
-            Weapon(const sf::Vector2f& shift, const sf::Vector2f& aim, float reloadTime):
-                    aim{aim}, shift{shift}, t{0}, reloadTime{reloadTime}
+            Weapon(const Info::WeaponBox& box):
+                    aim{box.direction}, shift{box.shift}, t{0}, reloadTime{box.reload}
             {}
 
             inline void Update(sf::Time dt)

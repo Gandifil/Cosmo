@@ -8,11 +8,13 @@ namespace Cosmo
 	namespace Entity {
 	    class Cruiser final : public Starship, public Cosmo::Control::IControllable {
 		public:
-			Cruiser(int maxHP, const sf::Texture &texture, const sf::Vector2f &vec) :
-					Starship{maxHP, texture, vec},
-					leftGun{sf::Vector2f{-10, 0}, sf::Vector2f{0, -100}, 0.25},
-                    rightGun{sf::Vector2f{10, 0}, sf::Vector2f{0, -100}, 0.25}
-            {}
+
+            Cruiser(const sf::Vector2f &vec, const Info::CruiserBox& box) :
+                    Starship{100, box.texture, vec},
+                    leftGun{box.leftWeapon},
+                    rightGun{box.rightWeapon},
+                    speed{box.speed}
+			{}
 
 			virtual ~ Cruiser() override {}
 
@@ -30,6 +32,7 @@ namespace Cosmo
 
 	    private:
 	        Utils::Weapon leftGun, rightGun;
+	        Info::SpeedBox speed;
 		};
 	}
 }

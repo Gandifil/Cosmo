@@ -21,7 +21,7 @@ namespace Cosmo
                 {
 					Info::Manager& m = Info::Manager::Instance();
 					m.Loading();
-                    cruiser = new Cruiser{100, m.Cruisers["first"].texture.texture, {500, 500} };
+                    cruiser = new Cruiser{{500, 500}, m.Cruisers["first"]};
                     controlInit = new Control::Keyboard{*cruiser};
                 }
 

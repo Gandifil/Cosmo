@@ -15,7 +15,7 @@ CruiserBox::CruiserBox(const TextureBox& tbox,
                        const WeaponBox& leftWeap,
                        const WeaponBox& rightWeap,
                        const SpeedBox& sbox):
-    texture{ tbox},
+    texture{ tbox.texture},
     leftWeapon{leftWeap},
     rightWeapon{rightWeap},
     speed{sbox}
