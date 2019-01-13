@@ -1,15 +1,14 @@
 //
 // Created by Gandifil on 1/12/2019.
 //
-
 #pragma once
-
 
 #include <TGUI/Vector2f.hpp>
 #include "IDestroyable.h"
 #include "ISpriteOwner.h"
 #include "IUpdateable.h"
 #include "../Utils/Trajectory.h"
+#include "../Info/Config.h"
 
 namespace Cosmo
 {
@@ -23,11 +22,12 @@ namespace Cosmo
 
             virtual void Update(sf::Time dt) override
             {
-                auto newPos = trajectory.UpdatePosition(dt);
+                static Info::Config& conf = Info::Config::Instance();
+                static float w = (float)(conf.getParam(Info::Config::WWindow));
+                static float h = (float)(conf.getParam(Info::Config::HWindow));
 
-                sf::View view;
-                auto size = view.getSize();
-                sf::FloatRect rect{-size.x, -size.y, 2 * size.x, 2 * size.y};
+                auto newPos = trajectory.UpdatePosition(dt);
+                sf::FloatRect rect{-w, -h, 2 * w, 2 * h};
                 if (rect.contains(newPos))
                     sprite.setPosition(newPos);
                 else Die();
