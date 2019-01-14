@@ -13,6 +13,7 @@ int Game::HandleEvent(sf::Event event)
 void Game::Update(sf::Time dt)
 {
 	controlling.Update(dt);
+	gameDirector.Spawn(dt);
 
 	entities.Update(dt);
 }
@@ -28,9 +29,6 @@ Game::Game(sf::RenderWindow& window, const Parameters& params):
 	entities{Entity::Service::Instance()}
 {
 	entities.players.Add(params.cruiser);
-	entities.enemies.Add(new Entity::Scout{
-		sf::Vector2f{500.f, 0.f},
-		Info::Manager::Instance().Cruisers["scout1"].starshipBox});
 }
 
 Game::~Game()
