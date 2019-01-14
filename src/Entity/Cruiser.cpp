@@ -20,8 +20,8 @@ void Cosmo::Entity::Cruiser::MainShoot()
 {
 	auto pos = sprite.getPosition();
 
-	leftGun.Fire(pos);
-	rightGun.Fire(pos);
+	leftGun.TryFire(pos);
+	rightGun.TryFire(pos);
 }
 
 void Cosmo::Entity::Cruiser::Update(sf::Time dt)

@@ -30,20 +30,34 @@ namespace Cosmo
                 return t <= 0.0001;
             }
 
-            inline void Fire(const sf::Vector2f& pos)
+            inline bool TryFire(const sf::Vector2f& pos)
             {
                 if (isReady())
                 {
-                    t = reloadTime;
-
-                    auto gunPos = pos + shift;
-                    Entity::Service::Instance().playersBullets.Add(
-                            new Bullet{Info::Manager::Instance().Textures["laserRed01.png"],
-                                       gunPos, gunPos + aim});
+                    Fire(pos);
+                    return true;
                 }
+                return false;
+            }
+
+            inline bool FireAlways(const sf::Vector2f& pos, sf::Time dt)
+            {
+                Update(dt);
+                return TryFire(pos);
             }
 
         private:
+
+            inline void Fire(const sf::Vector2f& pos)
+            {
+                t = reloadTime;
+
+                auto gunPos = pos + shift;
+                Entity::Service::Instance().playersBullets.Add(
+                        new Bullet{Info::Manager::Instance().Textures["laserRed01.png"],
+                                   gunPos, gunPos + aim});
+            }
+
             float t, reloadTime;
             sf::Vector2f shift, aim;
         };
