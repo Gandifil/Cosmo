@@ -20,6 +20,11 @@ namespace Cosmo
 				wnd.draw(sprite, states);
 			}
 
+			inline const sf::Vector2f& getPosition() const
+			{
+				return sprite.getPosition();
+			}
+
 		protected:
 			sf::Sprite sprite;
 		};

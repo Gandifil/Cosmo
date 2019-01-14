@@ -49,7 +49,6 @@ namespace Cosmo
 
             }
 
-		private:
 			std::forward_list<std::unique_ptr<T>> entities;
 		};
 	}

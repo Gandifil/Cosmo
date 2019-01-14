@@ -1,6 +1,8 @@
 texture = TextureBox.new("starship1.png")
+core = TextureBox.new("core.png")
 weap1 = WeaponBox.new(0.25, VectorBox.new(-10, 0), VectorBox.new(0, -21))
 weap2 = WeaponBox.new(0.25, VectorBox.new(10, 0), VectorBox.new(0, -21))
 speed = SpeedBox.new(190, 170, 140)
 cruiserStarship = StarshipBox.new(texture, speed, 1000)
 addBox("first", CruiserBox.new(cruiserStarship, weap1, weap2))
+addBox("scout1", CruiserBox.new(StarshipBox.new(core, speed, 1000), weap1, weap2))

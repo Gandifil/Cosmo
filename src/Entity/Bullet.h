@@ -33,6 +33,12 @@ namespace Cosmo
                 else Die();
             }
 
+            inline void ColliseEvent(Starship& entity)
+            {
+                entity.Damage(100);
+                Die();
+            }
+
         private:
             Cosmo::Utils::Trajectory trajectory;
         };

@@ -26,6 +26,10 @@ namespace Cosmo
 				// if (type.maxHP < hp) hp = type.maxHP;
 			}
 
+			inline bool isCollised(const ISpriteOwner& entity)
+            {
+			    return sprite.getGlobalBounds().contains(entity.getPosition());
+            }
 		protected:
 			Info::SpeedBox speed;
 

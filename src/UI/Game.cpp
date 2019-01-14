@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "../Info/Manager.h"
+#include "../Entity/Enemy/Scout.h"
 
 using namespace Cosmo::UI;
 
@@ -27,6 +28,9 @@ Game::Game(sf::RenderWindow& window, const Parameters& params):
 	entities{Entity::Service::Instance()}
 {
 	entities.players.Add(params.cruiser);
+	entities.enemies.Add(new Entity::Scout{
+		sf::Vector2f{500.f, 0.f},
+		Info::Manager::Instance().Cruisers["scout1"].starshipBox});
 }
 
 Game::~Game()

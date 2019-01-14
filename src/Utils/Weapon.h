@@ -37,7 +37,7 @@ namespace Cosmo
                     t = reloadTime;
 
                     auto gunPos = pos + shift;
-                    Entity::Service::Instance().bullets.Add(
+                    Entity::Service::Instance().playersBullets.Add(
                             new Bullet{Info::Manager::Instance().Textures["laserRed01.png"],
                                        gunPos, gunPos + aim});
                 }
