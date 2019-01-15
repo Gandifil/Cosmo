@@ -54,7 +54,7 @@ namespace Cosmo
 
                 auto gunPos = pos + shift;
                 Entity::Service::Instance().playersBullets.Add(
-                        new Bullet{Info::Manager::Instance().Textures["laserRed01.png"],
+                        new Bullet{Info::Manager::Instance().Textures["laserCruiser01.png"],
                                    gunPos, gunPos + aim});
             }
 
