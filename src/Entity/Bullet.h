@@ -32,6 +32,8 @@ namespace Cosmo
                 if (rect.contains(newPos))
                     sprite.setPosition(newPos);
                 else Die();
+
+                sprite.setRotation(trajectory.GetAngle());
             }
 
             inline void ColliseEvent(Starship& entity)
