@@ -1,7 +1,6 @@
 //
 // Created by Gandifil on 1/12/2019.
 //
-
 #pragma once
 
 #include <TGUI/Vector2f.hpp>
@@ -13,11 +12,14 @@ namespace Cosmo
 {
     namespace Utils
     {
-        class Weapon final
+        class Weapon
         {
         public:
-            Weapon(const Info::WeaponBox& box):
-                    aim{box.direction}, shift{box.shift}, t{0}, reloadTime{box.reload}
+            Weapon(const Info::WeaponBox& box, bool isPlayer):
+                    shift{box.shift}, t{0}, reloadTime{box.reload},
+                    createBulletBox{box.bulletBox},
+                    handler{isPlayer ? Entity::Service::Instance().playersBullets:
+                            Entity::Service::Instance().enemiesBullets}
             {}
 
             inline void Update(sf::Time dt)
@@ -27,39 +29,38 @@ namespace Cosmo
 
             inline bool isReady()
             {
-                return t <= 0.0001;
+                return t <= 0;
             }
 
-            inline bool TryFire(const sf::Vector2f& pos)
+            inline bool TryFire(const sf::Vector2f& pos, const sf::Vector2f& dir)
             {
                 if (isReady())
                 {
-                    Fire(pos);
+                    Fire(pos, dir);
                     return true;
                 }
                 return false;
             }
 
-            inline bool FireAlways(const sf::Vector2f& pos, sf::Time dt)
+            inline bool FireAlways(const sf::Vector2f& pos, const sf::Vector2f& dir, sf::Time dt)
             {
                 Update(dt);
-                return TryFire(pos);
+                return TryFire(pos, dir);
             }
 
         private:
 
-            inline void Fire(const sf::Vector2f& pos)
+            inline void Fire(const sf::Vector2f& pos, const sf::Vector2f& dir)
             {
                 t = reloadTime;
 
-                auto gunPos = pos + shift;
-                Entity::Service::Instance().playersBullets.Add(
-                        new Bullet{Info::Manager::Instance().Textures["laserCruiser01.png"],
-                                   gunPos, gunPos + aim});
+                handler.Add(new Bullet{createBulletBox, shift + pos, dir});
             }
 
             float t, reloadTime;
-            sf::Vector2f shift, aim;
+            const Info::BulletBox& createBulletBox;
+            sf::Vector2f shift;
+            Handler<Bullet>& handler;
         };
     }
 }

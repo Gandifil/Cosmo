@@ -15,9 +15,9 @@ namespace Cosmo
 		{
 		public:
 
-			Trajectory(const sf::Vector2f& start, const sf::Vector2f& end,
+			Trajectory(const sf::Vector2f& start, const sf::Vector2f& delta,
 			        std::function<sf::Vector2f(const sf::Vector2f&, float)> f):
-			    t{0}, delta{end - start}, begin{start}, f{f}
+			    t{0}, delta{delta}, begin{start}, f{f}
 			{}
 
 			sf::Vector2f UpdatePosition(sf::Time dt)

@@ -15,9 +15,9 @@ namespace Cosmo
     namespace Entity {
         class Bullet : public IDestroyable, public ISpriteOwner, public IUpdateable {
         public:
-            Bullet(const sf::Texture &texture, const sf::Vector2f &vec, const sf::Vector2f &dst) :
-                    ISpriteOwner{texture, vec},
-                    trajectory{vec, dst, Cosmo::Utils::linear10}
+            Bullet(const Info::BulletBox &box, const sf::Vector2f &pos, const sf::Vector2f &dir) :
+                    ISpriteOwner{box.texture, pos},
+                    trajectory{pos, dir, Cosmo::Utils::linear10}
                     {}
 
             virtual void Update(sf::Time dt) override

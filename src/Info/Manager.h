@@ -34,7 +34,12 @@ namespace Cosmo
 				lua.new_usertype<VectorBox>("VectorBox", sol::constructors<VectorBox(float x, float y)>());
 
 				lua.new_usertype<WeaponBox>("WeaponBox",
-						sol::constructors<WeaponBox(float reload, const VectorBox& shift, const VectorBox& dir)>());
+					sol::constructors<WeaponBox(const BulletBox& bbox, float reload, const VectorBox& shift, const VectorBox& dir)>());
+
+				lua.new_usertype<BulletBox>("BulletBox",
+					sol::constructors<BulletBox(const TextureBox& tbox,
+												int trjNum,
+												float speed)>());
 
 				lua.new_usertype<StarshipBox>("StarshipBox",
 											 sol::constructors<CruiserBox(const TextureBox& tbox,

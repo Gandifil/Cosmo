@@ -1,7 +1,7 @@
 #pragma once
 #include "Starship.h"
 #include "../Control/IControllable.h"
-#include "../Utils/Weapon.h"
+#include "../Utils/DirectedWeapon.h"
 
 namespace Cosmo
 {
@@ -11,8 +11,8 @@ namespace Cosmo
 
             Cruiser(const sf::Vector2f &vec, const Info::CruiserBox& box) :
                     Starship{vec, box.starshipBox},
-                    leftGun{box.leftWeapon},
-                    rightGun{box.rightWeapon}
+                    leftGun{box.leftWeapon, true},
+                    rightGun{box.rightWeapon, true}
 			{}
 
 			virtual ~ Cruiser() override {}
@@ -30,7 +30,7 @@ namespace Cosmo
 			virtual void Update(sf::Time dt) override;
 
 	    private:
-	        Utils::Weapon leftGun, rightGun;
+	        Utils::DirectedWeapon leftGun, rightGun;
 		};
 	}
 }

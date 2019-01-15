@@ -31,13 +31,30 @@ namespace Cosmo
             const sf::Vector2f vector;
         };
 
+
+        struct BulletBox
+        {
+            BulletBox(const TextureBox& tbox,
+                      int trjNum,
+                      float speed):
+                    texture{tbox.texture},
+                    trajectoryNum{trjNum},
+                    speed{speed}{}
+
+            const sf::Texture& texture;
+            int trajectoryNum;
+            float speed;
+        };
+
         struct WeaponBox
         {
-            WeaponBox(float reload, const VectorBox& shift, const VectorBox& dir):
+            WeaponBox(const BulletBox& bbox, float reload, const VectorBox& shift, const VectorBox& dir):
                 reload{reload},
                 shift{shift.vector},
-                direction{dir.vector}{}
+                direction{dir.vector},
+                bulletBox{bbox}{}
 
+            BulletBox bulletBox;
             float reload;
             sf::Vector2f shift, direction;
         };
