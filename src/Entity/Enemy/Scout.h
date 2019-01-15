@@ -14,8 +14,8 @@ namespace Cosmo
         class Scout final : public Starship
         {
         public:
-            Scout(const sf::Vector2f& pos, const Info::StarshipBox& box):
-                Starship{pos, box}
+            Scout(const sf::Vector2f& pos, const Info::CruiserBox& box):
+                Starship{pos, box.starshipBox}, weapon{box.leftWeapon, false}
             {
                 Info::Config& conf = Info::Config::Instance();
                 int w = conf.getParam(Info::Config::WWindow);
@@ -27,7 +27,8 @@ namespace Cosmo
 
             void Update(sf::Time dt) override
             {
-                sf::Vector2f delta = dstPoint - sprite.getPosition();
+                auto pos = sprite.getPosition();
+                sf::Vector2f delta = dstPoint - pos;
                 float sc = dt.asSeconds();
                 float top = speed.top * sc;
                 float down = speed.down * sc;
@@ -45,10 +46,14 @@ namespace Cosmo
                     delta.y = -down;
 
                 sprite.move(delta);
+
+                weapon.FireAlways(pos,
+                        Service::Instance().players.entities.front()->getPosition() - pos, dt);
             }
 
         private:
             sf::Vector2f dstPoint;
+            Utils::Weapon weapon;
         };
     }
 }

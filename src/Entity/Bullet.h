@@ -9,6 +9,7 @@
 #include "IUpdateable.h"
 #include "../Utils/Trajectory.h"
 #include "../Info/Config.h"
+#include "../Utils/VectorUtils.h"
 
 namespace Cosmo
 {
@@ -17,7 +18,7 @@ namespace Cosmo
         public:
             Bullet(const Info::BulletBox &box, const sf::Vector2f &pos, const sf::Vector2f &dir) :
                     ISpriteOwner{box.texture, pos},
-                    trajectory{pos, dir, Cosmo::Utils::linear10}
+                    trajectory(pos, Utils::Normalize(dir), Cosmo::Utils::linear10, box.speed)
                     {}
 
             virtual void Update(sf::Time dt) override
