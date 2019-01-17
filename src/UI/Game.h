@@ -6,6 +6,7 @@
 #include "../Entity/Service.h"
 #include "../Info/Manager.h"
 #include "../Entity/GameDirector.h"
+#include "../Control/Joystick.h"
 #include <forward_list>
 #include <string>
 
@@ -23,11 +24,12 @@ namespace Cosmo
 					Info::Manager& m = Info::Manager::Instance();
 					m.Loading();
                     cruiser = new Cruiser{{500, 500}, m.Cruisers["first"]};
-                    controlInit = new Control::Keyboard{*cruiser};
+                    controlInit1 = new Control::Keyboard{*cruiser};
+					controlInit2 = new Control::Joystick{*cruiser, 0};
                 }
 
 		        Entity::Cruiser *cruiser;
-		        Control::Controller *controlInit;
+		        Control::Controller *controlInit1, *controlInit2;
             };
 
             Game(sf::RenderWindow &renderWindow, const Parameters& params);

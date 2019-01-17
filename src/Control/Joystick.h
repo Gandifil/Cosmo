@@ -1,7 +1,6 @@
 //
 // Created by Gandifil on 1/12/2019.
 //
-
 #pragma once
 #include "Controller.h"
 
@@ -28,10 +27,10 @@ namespace Cosmo
             };
 
             Joystick(IControllable &actor, int n) : Controller(actor), n(n) {
-                shoot1 = 1;
-                shoot2 = 2;
-                abil1 = 3;
-                abil2 = 4;
+                shoot1 = 4;
+                shoot2 = 5;
+                abil1 = 8;
+                abil2 = 9;
 
                 top = 3;
                 down = 0;
