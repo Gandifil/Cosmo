@@ -3,6 +3,7 @@
 #include "../Info/Config.h"
 #include "StarField.h"
 #include "MainMenu.h"
+#include "FPSService.h"
 
 namespace Cosmo
 {
@@ -35,6 +36,7 @@ namespace Cosmo
 
 			sf::Event event;
 			sf::Clock clock;
+			FPSService fps;
 
 			inline void Render();
 
@@ -62,12 +64,14 @@ namespace Cosmo
 			renderWindow.clear();
 			renderWindow.draw(stars);
 			scene->Render();
+			renderWindow.draw(fps);
 			renderWindow.display();
 		}
 
 		inline void Window::Update(sf::Time dt) {
 			stars.Update(dt);
 			scene->Update(dt);
+			fps.Update(dt);
 		}
 
 		inline bool Window::ListenEvent() {
