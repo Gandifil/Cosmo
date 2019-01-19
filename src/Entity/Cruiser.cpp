@@ -28,4 +28,7 @@ void Cosmo::Entity::Cruiser::Update(sf::Time dt)
 {
 	leftGun.Update(dt);
 	rightGun.Update(dt);
+
+	static sf::Clock clock;
+	cruiserShader.setUniform("time", clock.getElapsedTime().asSeconds());
 }

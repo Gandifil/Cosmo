@@ -13,7 +13,13 @@ namespace Cosmo
                     Starship{vec, box.starshipBox},
                     leftGun{box.leftWeapon, true},
                     rightGun{box.rightWeapon, true}
-			{}
+			{
+                if (cruiserShader.loadFromFile("water.frag", sf::Shader::Fragment))
+                {
+                    shader = &cruiserShader;
+                }
+
+			}
 
 			virtual ~ Cruiser() override {}
 
@@ -31,6 +37,7 @@ namespace Cosmo
 
 	    private:
 	        Utils::DirectedWeapon leftGun, rightGun;
+	        sf::Shader cruiserShader;
 		};
 	}
 }

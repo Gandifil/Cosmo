@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML\\Graphics.hpp>
+#include <iostream>
 
 namespace Cosmo
 {
@@ -10,6 +11,7 @@ namespace Cosmo
 		public:
 			ISpriteOwner(const sf::Texture& texture, const sf::Vector2f& pos)
 			{
+			    shader = nullptr;
 				sprite.setTexture(texture);
 				sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
 				sprite.setPosition(pos);
@@ -17,6 +19,7 @@ namespace Cosmo
 
 			virtual void draw(sf::RenderTarget &wnd, sf::RenderStates states) const override
 			{
+				if (shader) states.shader = shader;
 				wnd.draw(sprite, states);
 			}
 
@@ -27,6 +30,7 @@ namespace Cosmo
 
 		protected:
 			sf::Sprite sprite;
+            sf::Shader* shader;
 		};
 	}
 }
