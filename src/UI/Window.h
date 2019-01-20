@@ -7,7 +7,11 @@
 
 namespace Cosmo
 {
-	namespace UI {
+	namespace UI
+	{
+	    /*!
+	     * Window can hangle this game and have main loop.
+	     */
 		class Window final {
 		public:
 			Window(const Info::Config &config);
