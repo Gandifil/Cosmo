@@ -23,9 +23,9 @@ file(GLOB_RECURSE COSMO_SRC
 
 include_directories(${SOL2_ROOT_PREFIX}/single/sol)
 include_directories(${LUA_ROOT_PREFIX}/include)
+FIND_LIBRARY(liblua lua53 liblua53 ${LUA_ROOT_PREFIX})
 
 add_executable(Cosmo ${COSMO_SRC})
-FIND_LIBRARY(liblua ${LUA_ROOT_PREFIX})
 target_link_libraries(Cosmo PRIVATE sfml-graphics tgui ${liblua})
 
 # prepare target dir
