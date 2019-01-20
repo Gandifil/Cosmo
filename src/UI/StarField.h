@@ -15,10 +15,9 @@ namespace Cosmo
 			virtual void draw(sf::RenderTarget &wnd, sf::RenderStates states) const;
 			void Update(sf::Time dt);
 		private:
-			sf::Vector2u winSize;
-			std::vector<sf::Vector2f> stars;
-			const int spb = 4;
-			const float speed = 15;
+			sf::Sprite sprite;
+			sf::Texture texture;
+			sf::Shader shader;
 		};
 	}
 }

@@ -1,17 +1,18 @@
+#include <iostream>
 #include "StarField.h"
 
 using namespace Cosmo::UI;
 
 StarField::StarField(sf::RenderWindow const &wnd)
 {
-	winSize = wnd.getSize();
+	auto winSize = wnd.getSize();
 
-	int countStars = (winSize.x * winSize.y) / 1000 * spb;
-	stars.resize(countStars);
-	for (size_t i = 0; i < countStars; i++)
+	if (!shader.loadFromFile("space.frag", sf::Shader::Fragment))
 	{
-		stars[i] = sf::Vector2f(rand()%winSize.x, rand() % winSize.y);
 	}
+
+	texture.create(winSize.x, winSize.y);
+	sprite.setTexture(texture);
 }
 
 StarField::~StarField()
@@ -20,22 +21,12 @@ StarField::~StarField()
 
 void StarField::draw(sf::RenderTarget &wnd, sf::RenderStates states) const
 {
-	wnd.clear(sf::Color::Black);
-	sf::Vertex buf({0, 0}, sf::Color::White);
-	for (size_t i = 0; i < stars.size(); i++)
-	{
-		buf.position = stars[i];
-		wnd.draw(&buf, 1, sf::PrimitiveType::Points);
-	}
+	wnd.draw(sprite, &shader);
 }
 
 void StarField::Update(sf::Time dt)
 {
-	sf::Vector2f sp(0, speed * dt.asSeconds());
-	for (size_t i = 0; i < stars.size(); i++)
-	{
-		stars[i] += sp;
-		if (stars[i].y > winSize.y)
-			stars[i] = sf::Vector2f(rand() % winSize.x, 0);
-	}
+	static float time = 0;
+	time += dt.asSeconds();
+	shader.setUniform("time", time);
 }
