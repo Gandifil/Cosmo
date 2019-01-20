@@ -18,7 +18,7 @@ namespace Cosmo {
             Handler<Starship> players,  enemies;
             Handler<Bullet> playersBullets, enemiesBullets;
 
-            Collision<Starship, Bullet> colliseBulToEnemy;
+            Collision<Starship, Bullet> colliseBulToEnemies, colliseBulToPlayers;
 
             inline void Render(sf::RenderWindow &wnd) const
             {
@@ -30,7 +30,8 @@ namespace Cosmo {
 
             inline void Update(sf::Time dt)
             {
-                colliseBulToEnemy.Check();
+                colliseBulToEnemies.Check();
+                colliseBulToPlayers.Check();
 
                 enemiesBullets.Update(dt);
                 playersBullets.Update(dt);
@@ -51,7 +52,8 @@ namespace Cosmo {
             }
         private:
             Service():
-                colliseBulToEnemy{enemies, playersBullets} {}
+                    colliseBulToEnemies{enemies, playersBullets},
+                    colliseBulToPlayers{players, enemiesBullets}{}
         };
     }
 }
