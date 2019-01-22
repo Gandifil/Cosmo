@@ -7,6 +7,7 @@
 #include "../Info/Manager.h"
 #include "../Entity/GameDirector.h"
 #include "../Control/Joystick.h"
+#include "../Utils/HPBar.h"
 #include <forward_list>
 #include <string>
 
@@ -49,6 +50,7 @@ namespace Cosmo
 			Control::Service controlling;
 			Entity::GameDirector gameDirector;
 			Entity::Service& entities;
+			Utils::HPBar hpBar;
 		};
 	}
 }

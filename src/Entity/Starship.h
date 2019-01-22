@@ -3,38 +3,26 @@
 #include "IDestroyable.h"
 #include "IUpdateable.h"
 #include "../Info/TypeBoxes.h"
+#include "IHPOwner.h"
 
 namespace Cosmo
 {
 	namespace Entity {
-		class Starship : public IDestroyable, public ISpriteOwner, public IUpdateable {
+		class Starship : public IHPOwner, public ISpriteOwner, public IUpdateable {
 		public:
 			Starship(const sf::Vector2f &vec, const Info::StarshipBox& box) :
 					ISpriteOwner{box.texture, vec},
-					hp{box.maxHP},
+					IHPOwner{box.maxHP},
 					speed{box.speed}{}
 
-			inline int getHP() { return hp; }
-
-			inline void Damage(unsigned int value) {
-				hp -= value;
-				if (hp <= 0) Die();
-			}
-
-			inline void Repair(unsigned int value) {
-				hp += value;
-				// if (type.maxHP < hp) hp = type.maxHP;
-			}
 
 			inline bool isCollised(const ISpriteOwner& entity)
             {
 			    return sprite.getGlobalBounds().contains(entity.getPosition());
             }
+
 		protected:
 			Info::SpeedBox speed;
-
-		private:
-			int hp;
 		};
 	}
 }
