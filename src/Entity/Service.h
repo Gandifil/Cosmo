@@ -45,6 +45,13 @@ namespace Cosmo {
                 playersBullets.RemoveDeads();
             }
 
+            inline void Clear(){
+                enemiesBullets.entities.clear();
+                playersBullets.entities.clear();
+                players.entities.clear();
+                enemies.entities.clear();
+            }
+
             static Service& Instance()
             {
                 static Service instance;

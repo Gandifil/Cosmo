@@ -50,6 +50,8 @@ namespace Cosmo
 			Entity::GameDirector gameDirector;
 			Entity::Service& entities;
 			Utils::HPBar hpBar;
+
+			void Exit();
 		};
 	}
 }

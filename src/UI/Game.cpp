@@ -19,7 +19,13 @@ void Game::Update(sf::Time dt)
 
 	entities.Update(dt);
 	if (entities.players.entities.empty())
-		Scene::Turn(new GameOver{renderWindow, GameOver::Statistics{100}});
+	    Exit();
+}
+
+void Game::Exit()
+{
+    entities.Clear();
+    Scene::Turn(new GameOver{renderWindow, GameOver::Statistics{100}});
 }
 
 void Game::Render()
