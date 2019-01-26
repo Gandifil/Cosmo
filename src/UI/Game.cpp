@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "../Info/Manager.h"
 #include "../Entity/Enemy/Scout.h"
+#include "GameOver.h"
 
 using namespace Cosmo::UI;
 
@@ -12,11 +13,13 @@ int Game::HandleEvent(sf::Event event)
 
 void Game::Update(sf::Time dt)
 {
+	hpBar.UpdateValue();
 	controlling.Update(dt);
 	gameDirector.Spawn(dt);
 
 	entities.Update(dt);
-	hpBar.UpdateValue();
+	if (entities.players.entities.empty())
+		Scene::Turn(new GameOver{renderWindow, GameOver::Statistics{100}});
 }
 
 void Game::Render()
@@ -26,7 +29,7 @@ void Game::Render()
 }
 
 Game::Game(sf::RenderWindow& window, const Parameters& params):
-	renderWindow{window},
+    Scene{window},
 	controlling{params.controlInit1, params.controlInit2},
 	entities{Entity::Service::Instance()},
 	hpBar{sf::Vector2f{1000, 1000}, 600.f, 50.f, *params.cruiser}

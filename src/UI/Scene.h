@@ -25,7 +25,9 @@ namespace Cosmo
 					instance = scene;
 				}
 			protected:
-				Scene(){}
+				sf::RenderWindow& renderWindow;
+
+				Scene(sf::RenderWindow& wnd): renderWindow{wnd}{}
 
 				void Turn(Scene* scene)
 				{

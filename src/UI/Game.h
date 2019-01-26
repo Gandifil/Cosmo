@@ -46,7 +46,6 @@ namespace Cosmo
             ~Game();
 
 		private:
-            sf::RenderWindow &renderWindow;
 			Control::Service controlling;
 			Entity::GameDirector gameDirector;
 			Entity::Service& entities;

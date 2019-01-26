@@ -7,7 +7,8 @@ namespace Cosmo
 	namespace UI {
 		class Menu : public Scene {
 		public:
-			Menu(sf::RenderWindow &wnd) : gui{wnd} {};
+			Menu(sf::RenderWindow &wnd):
+				gui{ wnd }, Scene{ wnd } {};
 
 			virtual int HandleEvent(sf::Event event) override {
 				gui.handleEvent(event);
