@@ -1,7 +1,7 @@
 texture = TextureBox.new("cruiser01.png")
 laser_texture = TextureBox.new("laserCruiser01.png")
 
-bullet01 = BulletBox.new(laser_texture, 100, 200)
+bullet01 = BulletBox.new(laser_texture, 100, 500)
 weap1 = WeaponBox.new(bullet01, 0.25, VectorBox.new(-32, 0), VectorBox.new(0, -120))
 weap2 = WeaponBox.new(bullet01, 0.25, VectorBox.new(32, 0), VectorBox.new(0, -120))
 speed = SpeedBox.new(300, 170, 290)
