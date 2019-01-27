@@ -19,7 +19,7 @@ namespace Cosmo
 			}
 
 			Holder<sf::Texture, ReadTexture> Textures;
-            Holder<CruiserBox, void> Cruisers;
+            Holder<StarshipBox, void> Starships;
 
             inline void Loading()
 			{
@@ -42,20 +42,16 @@ namespace Cosmo
 												float speed)>());
 
 				lua.new_usertype<StarshipBox>("StarshipBox",
-											 sol::constructors<CruiserBox(const TextureBox& tbox,
+											 sol::constructors<StarshipBox(const TextureBox& tbox,
 																		  const SpeedBox& sbox,
-																		  int maxhp)>());
-				lua.new_usertype<CruiserBox>("CruiserBox",
-                     sol::constructors<CruiserBox(const StarshipBox& ssbox,
-												  const WeaponBox& leftWeap,
-												  const WeaponBox& rightWeap)>());
+																		  int maxhp,
+																		  sol::variadic_args va)>());
 
-                lua["addBox"] = [&](const std::string& name, const CruiserBox& box)
+                lua["addBox"] = [&](const std::string& name, const StarshipBox& box)
                 {
-                    Cruisers.Add(name, new CruiserBox{box});
+					Starships.Add(name, new StarshipBox{box});
                 };
 
-                // lua.script("addBox('first', CruiserBox.new('starship1.png'))");
                 lua.script_file("entitytypes.lua");
 			}
 

@@ -11,11 +11,15 @@ TextureBox::TextureBox(const std::string& name):
 {
 };
 
-CruiserBox::CruiserBox(const StarshipBox& ssbox,
-                       const WeaponBox& leftWeap,
-                       const WeaponBox& rightWeap):
-    leftWeapon{leftWeap},
-    rightWeapon{rightWeap},
-    starshipBox{ssbox}
+StarshipBox::StarshipBox(const TextureBox& tbox,
+                        const SpeedBox& sbox,
+                        int maxhp,
+                        sol::variadic_args va):
+        texture{tbox.texture},
+        maxHP{maxhp},
+        speed{sbox}
 {
-};
+    for (auto v : va) {
+        weapons.push_back(v);
+    }
+}

@@ -9,10 +9,10 @@ namespace Cosmo
 	    class Cruiser final : public Starship, public Cosmo::Control::IControllable {
 		public:
 
-            Cruiser(const sf::Vector2f &vec, const Info::CruiserBox& box) :
-                    Starship{vec, box.starshipBox},
-                    leftGun{box.leftWeapon, true},
-                    rightGun{box.rightWeapon, true}
+            Cruiser(const sf::Vector2f &vec, const Info::StarshipBox& box) :
+                    Starship{vec, box},
+                    leftGun{box.weapons[0], true},
+                    rightGun{box.weapons[1], true}
 			{
                 if (cruiserShader.loadFromFile("water.frag", sf::Shader::Fragment))
                 {

@@ -14,8 +14,8 @@ namespace Cosmo
         class Scout final : public Starship
         {
         public:
-            Scout(const sf::Vector2f& pos, const Info::CruiserBox& box):
-                Starship{pos, box.starshipBox}, weapon{box.leftWeapon, false}
+            Scout(const sf::Vector2f& pos, const Info::StarshipBox& box):
+                Starship{pos, box}, weapon{box.weapons[0], false}
             {
                 Info::Config& conf = Info::Config::Instance();
                 int w = conf.getParam(Info::Config::WWindow);

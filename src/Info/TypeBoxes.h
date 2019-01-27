@@ -5,6 +5,7 @@
 #pragma once
 
 #include <SFML/Graphics/Texture.hpp>
+#include <sol.hpp>
 
 namespace Cosmo
 {
@@ -63,25 +64,13 @@ namespace Cosmo
         {
             StarshipBox(const TextureBox& tbox,
                         const SpeedBox& sbox,
-                        int maxhp):
-                texture{tbox.texture},
-                maxHP{maxhp},
-                speed{sbox}
-            {};
+                        int maxhp,
+                        sol::variadic_args va);
 
             const sf::Texture& texture;
             int maxHP;
             SpeedBox speed;
-        };
-
-        struct CruiserBox
-        {
-            CruiserBox(const StarshipBox& ssbox,
-                       const WeaponBox& leftWeap,
-                       const WeaponBox& rightWeap);
-
-            WeaponBox leftWeapon, rightWeapon;
-            StarshipBox starshipBox;
+            std::vector<WeaponBox> weapons;
         };
     }
 }
