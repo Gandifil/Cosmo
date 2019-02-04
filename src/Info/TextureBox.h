@@ -18,30 +18,21 @@ namespace Cosmo
 
             static void Regist(sol::state &lua){
 
-                //lua.new_usertype<Resource>("Resource");
-                //sol::resolve<Sprite*()>(&Sprite::create)
-                lua.set_function("Texture", [](const std::string& name)-> Resource* {
-                    TextureBox *instance = new TextureBox{};
-                    instance->texture.loadFromFile(name);
-                    return instance;
-                });
-                //lua.script("texture = Texture('cruiser01.png')");
-                //lua["Texture1"] = create2;
+                lua.set_function("Texture", sol::overload(
+                    [&](const std::string& name)-> Resource* {
+                        TextureBox *instance = new TextureBox{};
+                        instance->texture.loadFromFile(prefix + name);
+                        return instance;
+                    },
+                    [&](const std::string& name, int left, int top, int right, int bottom) -> Resource*{
+                        TextureBox *instance = new TextureBox{};
+                        instance->texture.loadFromFile(prefix + name, sf::IntRect(left, top, right ,bottom));
+                        return instance;
+                    }
+                ));
             }
         private:
-            static Resource* create1(const std::string& name){
-                TextureBox *instance = new TextureBox{};
-                instance->texture.loadFromFile(name);
-                return instance;
-            }
-
-
-            static Resource* create2(const std::string& name,
-                    int left, int top, int right, int bottom){
-                TextureBox *instance = new TextureBox{};
-                instance->texture.loadFromFile(name, sf::IntRect());
-                return instance;
-            }
+            static constexpr const char* prefix = "images/";
         };
     }
 }
