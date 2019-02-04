@@ -25,11 +25,12 @@ include_directories(${SOL2_ROOT_PREFIX}/single/sol)
 include_directories(${LUA_ROOT_PREFIX}/include)
 FIND_LIBRARY(liblua lua53 liblua53 ${LUA_ROOT_PREFIX})
 
-if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}res)
+if (${CMAKE_BUILD_TYPE} STREQUAL "Release")
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/CosmoRelease)
 endif()
 
 add_executable(Cosmo ${COSMO_SRC})
+
 target_link_libraries(Cosmo PRIVATE sfml-graphics tgui ${liblua})
 
 # prepare target dir
@@ -62,8 +63,8 @@ ADD_CUSTOM_COMMAND (TARGET Cosmo PRE_BUILD
         # output message
         COMMENT "Copying all files" VERBATIM)
 
-# copy resources to target dir
+
 if (${CMAKE_BUILD_TYPE} STREQUAL "Release")
-    ADD_CUSTOM_COMMAND (TARGET Cosmo PRE_BUILD
+    ADD_CUSTOM_COMMAND (TARGET Cosmo POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/res $<TARGET_FILE_DIR:Cosmo>)
-endif ()
+endif()
