@@ -65,6 +65,14 @@ ADD_CUSTOM_COMMAND (TARGET Cosmo PRE_BUILD
 
 
 if (${CMAKE_BUILD_TYPE} STREQUAL "Release")
+    set(GCC_SEH_DLL
+            libstdc++-6.dll
+            libwinpthread-1.dll
+            libgcc_s_seh-1.dll)
+    get_filename_component(DLL_PATH ${CMAKE_CXX_COMPILER} DIRECTORY )
+    list(TRANSFORM GCC_SEH_DLL PREPEND ${DLL_PATH}/)
     ADD_CUSTOM_COMMAND (TARGET Cosmo POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/res $<TARGET_FILE_DIR:Cosmo>)
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/res $<TARGET_FILE_DIR:Cosmo>
+            COMMAND ${CMAKE_COMMAND} -E copy ${GCC_SEH_DLL} $<TARGET_FILE_DIR:Cosmo>
+            )
 endif()
