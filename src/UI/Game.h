@@ -23,8 +23,7 @@ namespace Cosmo
 		        Parameters()
                 {
 					Info::Manager& m = Info::Manager::Instance();
-					m.Loading();
-                    cruiser = new Cruiser{{500, 500}, m.Starships["first"]};
+                    cruiser = new Cruiser{{500, 500}, m.Get<Info::StarshipBox>("first")};
                     controlInit1 = new Control::Keyboard{*cruiser};
 					controlInit2 = new Control::Joystick{*cruiser, 0};
                 }

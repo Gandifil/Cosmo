@@ -1,14 +1,12 @@
 #pragma once
-#include <SFML\Graphics.hpp>
-#include <sol.hpp>
-#include "Holder.h"
-#include "ReadTexture.h"
-#include "TypeBoxes.h"
+#include "Resource.h"
+#include "TextureBox.h"
 
 namespace Cosmo
 {
 	namespace Info
 	{
+
 		class Manager final
 		{
 		public:
@@ -18,45 +16,50 @@ namespace Cosmo
 				return manager;
 			}
 
-			Holder<sf::Texture, ReadTexture> Textures;
-            Holder<StarshipBox, void> Starships;
-
-            inline void Loading()
+			template<typename T>
+			inline const T& Get(const std::string& index)
 			{
-				sol::state lua;
-				lua.open_libraries(sol::lib::base);
+				auto found = resources.find(index);
 
-				lua.new_usertype<SpeedBox>("SpeedBox",
-						sol::constructors<SpeedBox(int top, int down, int side)>());
+				if (found == resources.end())
+					throw new int{0};
+				else
+				{
+					Resource *src = found->second.get();
+					T *res = dynamic_cast<T*>(src);
+					return *res;
 
-				lua.new_usertype<TextureBox>("TextureBox", sol::constructors<TextureBox(const std::string& name)>());
-
-				lua.new_usertype<VectorBox>("VectorBox", sol::constructors<VectorBox(float x, float y)>());
-
-				lua.new_usertype<WeaponBox>("WeaponBox",
-					sol::constructors<WeaponBox(const BulletBox& bbox, float reload, const VectorBox& shift, const VectorBox& dir)>());
-
-				lua.new_usertype<BulletBox>("BulletBox",
-					sol::constructors<BulletBox(const TextureBox& tbox,
-												int trjNum,
-												float speed)>());
-
-				lua.new_usertype<StarshipBox>("StarshipBox",
-											 sol::constructors<StarshipBox(const TextureBox& tbox,
-																		  const SpeedBox& sbox,
-																		  int maxhp,
-																		  sol::variadic_args va)>());
-
-                lua["addBox"] = [&](const std::string& name, const StarshipBox& box)
-                {
-					Starships.Add(name, new StarshipBox{box});
-                };
-
-                lua.script_file("entitytypes.lua");
+				}
 			}
 
 		private:
-			Manager(){}
+			Manager()
+			{
+            	Loading();
+            }
+
+			std::map<std::string, std::unique_ptr<Resource>> resources;
+
+            inline void Loading(){
+				sol::state lua;
+
+				lua.open_libraries();
+				//lua.new_usertype<Resource>("Resource");
+				SolRegist<WeaponBox, SpeedBox, BulletBox, VectorBox>(lua);
+				SolRegist<TextureBox, StarshipBox>(lua);
+
+                lua["add"] = [&] (const std::string& name, Resource* resource) {
+                    Add(name, resource);
+                };
+
+                //lua.script("texture = Texture('cruiser01.png')");
+                lua.script_file("entitytypes.lua");
+            }
+
+            inline void Add(const std::string& name, Resource* resource)
+            {
+                resources.insert(std::make_pair(name, std::unique_ptr<Resource>(resource)));
+            }
 		};
 	}
 }

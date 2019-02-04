@@ -25,7 +25,7 @@ namespace Cosmo
                 {
                     entities.enemies.Add(new Scout{
                             sf::Vector2f{500.f, 0.f},
-                            Info::Manager::Instance().Starships["scout1"]});
+                            Info::Manager::Instance().Get<Info::StarshipBox>("scout1")});
 
                     spawnTime = 0;
                 }
