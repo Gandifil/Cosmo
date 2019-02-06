@@ -1,5 +1,5 @@
-#include <iostream>
 #include "StarField.h"
+#include "../Info/Manager.h"
 
 using namespace Cosmo::UI;
 
@@ -7,16 +7,13 @@ StarField::StarField(sf::RenderWindow const &wnd)
 {
 	auto winSize = wnd.getSize();
 
-	if (!shader.loadFromFile("space.frag", sf::Shader::Fragment))
+	const Info::ShaderBox& box = Info::Manager::Instance().Get<Info::ShaderBox>("shSpace");
+	if (!shader.loadFromMemory(box.getText(), sf::Shader::Fragment))
 	{
 	}
 
 	texture.create(winSize.x, winSize.y);
 	sprite.setTexture(texture);
-}
-
-StarField::~StarField()
-{
 }
 
 void StarField::draw(sf::RenderTarget &wnd, sf::RenderStates states) const

@@ -14,7 +14,8 @@ namespace Cosmo
                     leftGun{box.weapons[0], true},
                     rightGun{box.weapons[1], true}
 			{
-                if (cruiserShader.loadFromFile("water.frag", sf::Shader::Fragment))
+				const Info::ShaderBox& shBox = Info::Manager::Instance().Get<Info::ShaderBox>("shJets");
+				if (cruiserShader.loadFromMemory(shBox.getText(), sf::Shader::Fragment))
                 {
                     shader = &cruiserShader;
                 }

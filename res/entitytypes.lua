@@ -1,3 +1,5 @@
+add("shJets", Shader("jets.frag"))
+add("shSpace", Shader("space.frag"))
 
 speed = Speed.new(300, 170, 290)
 laser_texture = Texture("laserCruiser01.png")

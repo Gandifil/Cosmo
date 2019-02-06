@@ -1,7 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <vector>
-#include <random>
 
 namespace Cosmo
 {
@@ -11,9 +9,9 @@ namespace Cosmo
 		{
 		public:
 			StarField(sf::RenderWindow const &wnd);
-			~StarField();
 			virtual void draw(sf::RenderTarget &wnd, sf::RenderStates states) const;
 			void Update(sf::Time dt);
+
 		private:
 			sf::Sprite sprite;
 			sf::Texture texture;

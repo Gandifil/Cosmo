@@ -1,8 +1,8 @@
 //
 // Created by Gandifil on 1/13/2019.
 //
-
-#pragma once
+#ifndef COSMO_INFO_TYPEBOXES_H
+#define COSMO_INFO_TYPEBOXES_H
 
 #include <sol.hpp>
 #include <SFML/Graphics.hpp>
@@ -115,3 +115,4 @@ namespace Cosmo
         };
     }
 }
+#endif // COSMO_INFO_TYPEBOXES_H

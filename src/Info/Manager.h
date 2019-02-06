@@ -1,12 +1,15 @@
-#pragma once
+#ifndef COSMO_INFO_MANAGER_H
+#define COSMO_INFO_MANAGER_H
+
 #include "Resource.h"
 #include "TextureBox.h"
+#include "TypeBoxes.h"
+#include "ShaderBox.h"
 
 namespace Cosmo
 {
 	namespace Info
 	{
-
 		class Manager final
 		{
 		public:
@@ -40,13 +43,12 @@ namespace Cosmo
 
 			std::map<std::string, std::unique_ptr<Resource>> resources;
 
-            inline void Loading(){
+			void Loading(){
 				sol::state lua;
 
 				lua.open_libraries();
-				//lua.new_usertype<Resource>("Resource");
 				SolRegist<WeaponBox, SpeedBox, BulletBox, VectorBox>(lua);
-				SolRegist<TextureBox, StarshipBox>(lua);
+				SolRegist<TextureBox, StarshipBox, ShaderBox>(lua);
 
                 lua["add"] = [&] (const std::string& name, Resource* resource) {
                     Add(name, resource);
@@ -63,3 +65,4 @@ namespace Cosmo
 		};
 	}
 }
+#endif //COSMO_INFO_MANAGER_H
