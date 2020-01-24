@@ -6,7 +6,6 @@
 #include <TGUI/Vector2f.hpp>
 #include "IDestroyable.h"
 #include "ISpriteOwner.h"
-#include "IUpdateable.h"
 #include "../Utils/Trajectory.h"
 #include "../Info/Config.h"
 #include "../Utils/VectorUtils.h"
@@ -14,14 +13,14 @@
 namespace Cosmo
 {
     namespace Entity {
-        class Bullet : public IDestroyable, public ISpriteOwner, public IUpdateable {
+        class Bullet : public IDestroyable, public ISpriteOwner, public IUpdatable {
         public:
             Bullet(const Info::BulletBox &box, const sf::Vector2f &pos, const sf::Vector2f &dir) :
                     ISpriteOwner{box.texture, pos},
                     trajectory(pos, Utils::Normalize(dir), Cosmo::Utils::linear10, box.speed)
                     {}
 
-            virtual void Update(sf::Time dt) override
+            virtual void update(sf::Time dt) override
             {
                 static Info::Config& conf = Info::Config::Instance();
                 static float w = (float)(conf.getParam(Info::Config::WWindow));

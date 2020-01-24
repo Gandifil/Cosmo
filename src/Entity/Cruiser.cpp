@@ -24,7 +24,7 @@ void Cosmo::Entity::Cruiser::MainShoot()
 	rightGun.TryFire(pos);
 }
 
-void Cosmo::Entity::Cruiser::Update(sf::Time dt)
+void Cosmo::Entity::Cruiser::update(sf::Time dt)
 {
 	leftGun.Update(dt);
 	rightGun.Update(dt);

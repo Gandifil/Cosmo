@@ -25,7 +25,7 @@ namespace Cosmo
                 sprite.setRotation(180.f);
             }
 
-            void Update(sf::Time dt) override
+            void update(sf::Time dt) override
             {
                 auto pos = sprite.getPosition();
                 sf::Vector2f delta = dstPoint - pos;

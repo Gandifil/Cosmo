@@ -1,14 +1,14 @@
 #pragma once
 #include "ISpriteOwner.h"
 #include "IDestroyable.h"
-#include "IUpdateable.h"
 #include "../Info/TypeBoxes.h"
 #include "IHPOwner.h"
+#include "../IUpdatable.h"
 
 namespace Cosmo
 {
 	namespace Entity {
-		class Starship : public IHPOwner, public ISpriteOwner, public IUpdateable {
+		class Starship : public IHPOwner, public ISpriteOwner, public IUpdatable {
 		public:
 			Starship(const sf::Vector2f &vec, const Info::StarshipBox& box) :
 					ISpriteOwner{box.texture, vec},
