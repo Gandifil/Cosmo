@@ -8,9 +8,9 @@ namespace Cosmo
 		public:
 			MainMenu(sf::RenderWindow &wnd);
 
-			virtual int HandleEvent(sf::Event event) override {
-				Menu::HandleEvent(event);
-				return (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape) ? 0 : 1;
+			virtual void handleEvent(sf::Event event) override {
+				Menu::handleEvent(event);
+				//return (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape) ? 0 : 1;
 			}
 
 		private:

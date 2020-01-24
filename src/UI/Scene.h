@@ -8,11 +8,11 @@
 #include <SFML/Graphics.hpp>
 #include <stack>
 #include "../IUpdatable.h"
+#include "../IEventHandler.h"
 
 namespace Cosmo::UI {
-	class Scene: public sf::NonCopyable, public IUpdatable {
+	class Scene: public sf::NonCopyable, public IUpdatable, public IEventHandler {
 	public:
-		virtual int HandleEvent(sf::Event event) = 0;
 		virtual void Render() = 0;
 
 		inline static auto& stack()

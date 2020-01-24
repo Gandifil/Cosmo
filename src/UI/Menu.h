@@ -13,9 +13,8 @@ namespace Cosmo::UI {
 	public:
 		Menu(sf::RenderWindow &wnd) : gui{wnd} {};
 
-		virtual int HandleEvent(sf::Event event) override {
+		virtual void handleEvent(sf::Event event) override {
 			gui.handleEvent(event);
-			return 1;
 		};
 
 		virtual void update(sf::Time dt) override {

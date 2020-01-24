@@ -37,7 +37,7 @@ namespace Cosmo
 
 			explicit Game(sf::RenderWindow &renderWindow): Game{renderWindow, Parameters()} {};
 
-            virtual int HandleEvent(sf::Event event) override;
+            virtual void handleEvent(sf::Event event) override;
 
             virtual void update(sf::Time dt) override;
 

@@ -52,8 +52,7 @@ namespace Cosmo {
     inline void Application::handleEvents(){
         sf::Event event;
         while (window.getRenderWindow().pollEvent(event))
-            if (Scene::current()->HandleEvent(event) == 0)
-                isAlive = false;
+            Scene::current()->handleEvent(event);
     }
 
     inline bool Application::isRunning(){

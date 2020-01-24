@@ -2,10 +2,9 @@
 
 using namespace Cosmo::UI;
 
-int Game::HandleEvent(sf::Event event)
+void Game::handleEvent(sf::Event event)
 {
 	controlling.onHandleEvent(event);
-	return 1;
 }
 
 void Game::update(sf::Time dt)
