@@ -1,7 +1,6 @@
-#include "Info/Config.h"
-#include "UI/Window.h"
+#include "Application.h"
 
 int main() {
-	Cosmo::UI::Window window{ Cosmo::Info::Config::Instance() };
-	return window.MainLoop();
+	Application app{};
+	return app.exec();
 }

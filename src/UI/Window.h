@@ -2,87 +2,47 @@
 #include <SFML/Graphics.hpp>
 #include "../Info/Config.h"
 #include "StarField.h"
-#include "MainMenu.h"
 #include "FPSService.h"
+#include "Scene.h"
 
-namespace Cosmo
+namespace Cosmo::UI
 {
-	namespace UI
-	{
-	    /*!
-	     * Window can hangle this game and have main loop.
-	     */
-		class Window final {
-		public:
-			Window(const Info::Config &config);
+	class Window final {
+	public:
+		Window(const Info::Config &config);
 
-			~Window();
+		inline void Render();
 
-			inline int MainLoop() {
-				while (renderWindow.isOpen()) {
-					if (ListenEvent())
-						return EXIT_SUCCESS;
+		inline void Update(sf::Time dt);
 
-					Update(clock.restart());
-					Render();
-				}
-				return EXIT_SUCCESS;
-			}
-
-		private:
-			sf::RenderWindow renderWindow;
-
-			const Info::Config &config;
-
-			StarField stars;
-
-			Scene *&scene;
-
-			sf::Event event;
-			sf::Clock clock;
-			FPSService fps;
-
-			inline void Render();
-
-			inline void Update(sf::Time dt);
-
-			inline bool ListenEvent();
-		};
-
-		Window::Window(const Info::Config &config) :
-				renderWindow{sf::VideoMode{(unsigned int) config.getParam(Info::Config::WWindow),
-										   (unsigned int) config.getParam(Info::Config::HWindow)},
-							 "Cosmo",
-							 (sf::Uint32)
-							 	(config.getParam(Info::Config::isFullScreen) ? sf::Style::Fullscreen : sf::Style::Default)},
-				config{config},
-				stars{renderWindow},
-				scene{Scene::Instance()} {
-			Scene::Add(new MainMenu(renderWindow));
+		inline sf::RenderWindow& getRenderWindow() {
+			return renderWindow;
 		}
+	private:
+		sf::RenderWindow renderWindow;
+		StarField stars;
+		FPSService fps;
+	};
 
-		Window::~Window() {
-		}
+	Window::Window(const Info::Config &config) :
+			renderWindow{sf::VideoMode{(unsigned int) config.getParam(Info::Config::WWindow),
+									   (unsigned int) config.getParam(Info::Config::HWindow)},
+						 "Cosmo",
+						 (sf::Uint32)
+							(config.getParam(Info::Config::isFullScreen) ? sf::Style::Fullscreen : sf::Style::Default)},
+			stars{renderWindow} {
+	}
 
-		inline void Window::Render() {
-			renderWindow.clear();
-			renderWindow.draw(stars);
-			scene->Render();
-			renderWindow.draw(fps);
-			renderWindow.display();
-		}
+	inline void Window::Render() {
+		renderWindow.clear();
+		renderWindow.draw(stars);
+		Scene::Instance()->Render();
+		renderWindow.draw(fps);
+		renderWindow.display();
+	}
 
-		inline void Window::Update(sf::Time dt) {
-			stars.Update(dt);
-			scene->Update(dt);
-			fps.Update(dt);
-		}
-
-		inline bool Window::ListenEvent() {
-			while (renderWindow.pollEvent(event))
-				if ((scene->HandleEvent(event)) == 0)
-					return true;
-			return false;
-		}
+	inline void Window::Update(sf::Time dt) {
+		stars.Update(dt);
+		fps.Update(dt);
 	}
 }

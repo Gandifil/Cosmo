@@ -1,0 +1,63 @@
+//
+// Created by Gandifil on 23.01.2020.
+//
+
+#ifndef COSMO_APPLICATION_H
+#define COSMO_APPLICATION_H
+
+#include <SFML/System/Clock.hpp>
+#include "UI/Window.h"
+#include "UI/MainMenu.h"
+
+class Application final {
+public:
+    Application();
+
+    int exec();
+
+private:
+    Cosmo::UI::Window window;
+    sf::Clock clock;
+    Cosmo::UI::Scene*& scene;
+    bool isAlive = true;
+
+    inline void update(sf::Time dt);
+    inline void handleEvents();
+    inline bool isRunning();
+};
+
+using namespace Cosmo::UI;
+
+Application::Application():
+    window{ Cosmo::Info::Config::Instance() },
+    scene{Scene::Instance()} {
+    Scene::Add(new MainMenu{ window.getRenderWindow() });
+};
+
+int Application::exec(){
+    while(isRunning())
+    {
+        handleEvents();
+        update(clock.restart());
+        window.Render();
+    }
+    return EXIT_SUCCESS;
+}
+
+inline void Application::update(sf::Time dt){
+    window.Update(dt);
+    scene->Update(dt);
+}
+
+inline void Application::handleEvents(){
+    sf::Event event;
+    while (window.getRenderWindow().pollEvent(event))
+        if ((scene->HandleEvent(event)) == 0)
+            isAlive = false;
+}
+
+inline bool Application::isRunning(){
+    return isAlive;
+}
+
+#endif //COSMO_APPLICATION_H
