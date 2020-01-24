@@ -4,12 +4,12 @@ using namespace Cosmo::UI;
 
 void Game::handleEvent(sf::Event event)
 {
-	controlling.onHandleEvent(event);
+	controlling.handleEvent(event);
 }
 
 void Game::update(sf::Time dt)
 {
-	controlling.Update(dt);
+	controlling.update(dt);
 	gameDirector.Spawn(dt);
 
 	entities.Update(dt);

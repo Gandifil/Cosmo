@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include "../Control/Keyboard.h"
 #include "../Entity/Cruiser.h"
-#include "../Control/Service.h"
+#include "../Control/System.h"
 #include "../Entity/Service.h"
 #include "../Info/Manager.h"
 #include "../Entity/GameDirector.h"
@@ -45,7 +45,7 @@ namespace Cosmo
 
 		private:
             sf::RenderWindow &renderWindow;
-			Control::Service controlling;
+			Control::System controlling;
 			Entity::GameDirector gameDirector;
 			Entity::Service& entities;
 			Utils::HPBar hpBar;
