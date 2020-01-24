@@ -8,13 +8,14 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <random>
+#include "../IUpdatable.h"
 
 namespace Cosmo::UI {
-	class StarField: public sf::Drawable {
+	class StarField: public sf::Drawable, public IUpdatable {
 	public:
 		StarField(sf::RenderWindow const &wnd);
 		inline virtual void draw(sf::RenderTarget &wnd, sf::RenderStates states) const;
-		inline void Update(sf::Time dt);
+		inline void update(sf::Time dt) override;
 
 	private:
 		sf::Sprite sprite;
@@ -39,7 +40,7 @@ namespace Cosmo::UI {
 		wnd.draw(sprite, &shader);
 	}
 
-	inline void StarField::Update(sf::Time dt)
+	inline void StarField::update(sf::Time dt)
 	{
 		static float time = 0;
 		time += dt.asSeconds();

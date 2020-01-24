@@ -18,7 +18,7 @@ namespace Cosmo::UI {
 			return 1;
 		};
 
-		virtual void Update(sf::Time dt) override {
+		virtual void update(sf::Time dt) override {
 			gui.updateTime(dt);
 		};
 

@@ -11,7 +11,7 @@ namespace Cosmo
 {
     namespace UI
     {
-    class FPSService final: public sf::Drawable
+    class FPSService final: public sf::Drawable, public IUpdatable
         {
         public:
             FPSService()
@@ -21,7 +21,7 @@ namespace Cosmo
                 text.setFont(font);
             }
 
-            inline void Update(sf::Time dt)
+            inline void update(sf::Time dt)
             {
                 fps = 1.f / dt.asSeconds();
                 text.setString("FPS: " + std::to_string(fps));

@@ -8,7 +8,7 @@ int Game::HandleEvent(sf::Event event)
 	return 1;
 }
 
-void Game::Update(sf::Time dt)
+void Game::update(sf::Time dt)
 {
 	controlling.Update(dt);
 	gameDirector.Spawn(dt);

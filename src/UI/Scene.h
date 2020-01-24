@@ -7,12 +7,12 @@
 
 #include <SFML/Graphics.hpp>
 #include <stack>
+#include "../IUpdatable.h"
 
 namespace Cosmo::UI {
-	class Scene: public sf::NonCopyable {
+	class Scene: public sf::NonCopyable, public IUpdatable {
 	public:
 		virtual int HandleEvent(sf::Event event) = 0;
-		virtual void Update(sf::Time dt) = 0;
 		virtual void Render() = 0;
 
 		inline static auto& stack()

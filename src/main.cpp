@@ -1,6 +1,6 @@
 #include "Application.h"
 
 int main() {
-	Application app{};
+	Cosmo::Application app{};
 	return app.exec();
 }

@@ -4,16 +4,17 @@
 #include "StarField.h"
 #include "FPSService.h"
 #include "Scene.h"
+#include "../IUpdatable.h"
 
 namespace Cosmo::UI
 {
-	class Window final {
+	class Window final: public IUpdatable {
 	public:
 		Window(const Info::Config &config);
 
 		inline void Render();
 
-		inline void Update(sf::Time dt);
+		inline void update(sf::Time dt) override;
 
 		inline sf::RenderWindow& getRenderWindow() {
 			return renderWindow;
@@ -41,8 +42,8 @@ namespace Cosmo::UI
 		renderWindow.display();
 	}
 
-	inline void Window::Update(sf::Time dt) {
-		stars.Update(dt);
-		fps.Update(dt);
+	inline void Window::update(sf::Time dt) {
+		stars.update(dt);
+		fps.update(dt);
 	}
 }
