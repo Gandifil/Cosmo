@@ -1,6 +1,5 @@
 #include "Game.h"
 #include "MainMenu.h"
-#include "../Info/Config.h"
 
 using namespace Cosmo::UI;
 using namespace tgui;
@@ -27,6 +26,6 @@ MainMenu::MainMenu(sf::RenderWindow &wnd) :
 	button->setTextSize(35);
 	button->connect("pressed", [&]() 
 	{
-		Add(new Game{wnd});
+		stack().push(new Game{ wnd });
 	});
 }

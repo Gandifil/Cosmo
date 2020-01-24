@@ -36,7 +36,7 @@ namespace Cosmo::UI
 	inline void Window::Render() {
 		renderWindow.clear();
 		renderWindow.draw(stars);
-		Scene::Instance()->Render();
+		Scene::stack().top()->Render();
 		renderWindow.draw(fps);
 		renderWindow.display();
 	}

@@ -1,6 +1,4 @@
 #include "Game.h"
-#include "../Info/Manager.h"
-#include "../Entity/Enemy/Scout.h"
 
 using namespace Cosmo::UI;
 
@@ -33,8 +31,4 @@ Game::Game(sf::RenderWindow& window, const Parameters& params):
 {
 	auto size = window.getSize();
 	entities.players.Add(params.cruiser);
-}
-
-Game::~Game()
-{
 }

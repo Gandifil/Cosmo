@@ -43,8 +43,6 @@ namespace Cosmo
 
             virtual void Render() override;
 
-            ~Game();
-
 		private:
             sf::RenderWindow &renderWindow;
 			Control::Service controlling;

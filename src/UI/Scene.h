@@ -1,48 +1,30 @@
-#pragma once
+//
+// Created by Gandifil on 24.01.2020.
+//
+
+#ifndef COSMO_UI_SCENE
+#define COSMO_UI_SCENE
+
 #include <SFML/Graphics.hpp>
+#include <stack>
 
-namespace Cosmo
-{
-	namespace UI {
-		class Scene
+namespace Cosmo::UI {
+	class Scene: public sf::NonCopyable {
+	public:
+		virtual int HandleEvent(sf::Event event) = 0;
+		virtual void Update(sf::Time dt) = 0;
+		virtual void Render() = 0;
+
+		inline static auto& stack()
 		{
-			public:
-				virtual int HandleEvent(sf::Event event) = 0;
-				virtual void Update(sf::Time dt) = 0;
-				virtual void Render() = 0;
+			static std::stack<Scene*> stack;
+			return stack;
+		}
 
-				Scene(Scene const&) = delete;
-				Scene& operator= (Scene const&) = delete;
-
-				inline static Scene*& Instance()
-				{
-					return instance;
-				}
-
-				static void Add(Scene* scene)
-				{
-					scene->stack = instance;
-					instance = scene;
-				}
-			protected:
-				Scene(){}
-
-				void Turn(Scene* scene)
-				{
-					scene->stack = instance->stack;
-					delete instance;
-					instance = scene;
-				}
-
-				void Remove()
-				{
-					auto stack = instance->stack;
-					delete instance;
-					instance = stack;
-				}
-			private:
-				static Scene* instance;
-				Scene* stack = nullptr;
-		};
-	}
+		inline static Scene* current(){
+			return stack().top();
+		}
+	};
 }
+
+#endif

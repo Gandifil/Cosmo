@@ -18,7 +18,6 @@ public:
 private:
     Cosmo::UI::Window window;
     sf::Clock clock;
-    Cosmo::UI::Scene*& scene;
     bool isAlive = true;
 
     inline void update(sf::Time dt);
@@ -29,9 +28,9 @@ private:
 using namespace Cosmo::UI;
 
 Application::Application():
-    window{ Cosmo::Info::Config::Instance() },
-    scene{Scene::Instance()} {
-    Scene::Add(new MainMenu{ window.getRenderWindow() });
+    window{ Cosmo::Info::Config::Instance() }
+    {
+    Scene::stack().push(new MainMenu{ window.getRenderWindow() });
 };
 
 int Application::exec(){
@@ -46,13 +45,13 @@ int Application::exec(){
 
 inline void Application::update(sf::Time dt){
     window.Update(dt);
-    scene->Update(dt);
+    Scene::current()->Update(dt);
 }
 
 inline void Application::handleEvents(){
     sf::Event event;
     while (window.getRenderWindow().pollEvent(event))
-        if ((scene->HandleEvent(event)) == 0)
+        if (Scene::current()->HandleEvent(event) == 0)
             isAlive = false;
 }
 
