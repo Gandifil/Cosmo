@@ -1,12 +1,11 @@
 #pragma once
 #include "Scene.h"
-#include "../Control/Keyboard.h"
+#include "../Control/ConcreteControllers/Keyboard.h"
 #include "../Entity/Cruiser.h"
 #include "../Control/System.h"
 #include "../Entity/Service.h"
 #include "../Info/Manager.h"
 #include "../Entity/GameDirector.h"
-#include "../Control/Joystick.h"
 #include "../Utils/HPBar.h"
 #include <forward_list>
 #include <string>
@@ -26,7 +25,6 @@ namespace Cosmo
 					m.Loading();
                     cruiser = new Cruiser{{500, 500}, m.Cruisers["first"]};
                     controlInit1 = new Control::Keyboard{*cruiser};
-					controlInit2 = new Control::Joystick{*cruiser, 0};
                 }
 
 		        Entity::Cruiser *cruiser;

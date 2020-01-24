@@ -11,9 +11,8 @@ namespace Cosmo
 		class Controller
 		{
         public:
-            Controller(IControllable &actor1) : actor{ actor1 } {}
+			Controller(IControllable &actor) : actor{ actor } {}
             virtual bool onHandleEvent(sf::Event event) = 0;
-            virtual void ControlUpdate(sf::Time dt) = 0;
 
 		protected:
 			IControllable &actor;

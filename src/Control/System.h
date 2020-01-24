@@ -9,23 +9,18 @@
 #include "../IUpdatable.h"
 #include "Controller.h"
 
-namespace Cosmo::Control{
-    class System: public IEventHandler, public IUpdatable  {
+namespace Cosmo::Control {
+    class System: public IEventHandler {
     public:
-        System(std::initializer_list<Controller *> init_list) : controllers{init_list} { }
+        System(std::initializer_list<Controller*> init_list) : controllers{init_list} { }
 
         inline void handleEvent(sf::Event event) override {
             for (auto item : controllers)
                 item->onHandleEvent(event);
         }
 
-        inline void update(sf::Time dt) override {
-            for (auto item : controllers)
-                item->ControlUpdate(dt);
-        }
-
     private:
-        std::vector<Controller *> controllers;
+        std::vector<Controller*> controllers;
     };
 }
 

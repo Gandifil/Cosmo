@@ -9,7 +9,6 @@ void Game::handleEvent(sf::Event event)
 
 void Game::update(sf::Time dt)
 {
-	controlling.update(dt);
 	gameDirector.Spawn(dt);
 
 	entities.Update(dt);
@@ -24,7 +23,7 @@ void Game::Render()
 
 Game::Game(sf::RenderWindow& window, const Parameters& params):
 	renderWindow{window},
-	controlling{params.controlInit1, params.controlInit2},
+	controlling{params.controlInit1},
 	entities{Entity::Service::Instance()},
 	hpBar{sf::Vector2f{1000, 1000}, 600.f, 50.f, *params.cruiser}
 {

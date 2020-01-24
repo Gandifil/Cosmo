@@ -31,7 +31,7 @@ namespace Cosmo
 
 			virtual void AltAbility() override {}
 
-			virtual void Move(sf::Time dt, Cosmo::Control::Direction d) override;
+			inline void Move(sf::Time dt, Cosmo::Control::Directions d);
 
 			virtual void Update(sf::Time dt) override;
 
