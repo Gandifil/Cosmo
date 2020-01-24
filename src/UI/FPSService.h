@@ -7,37 +7,34 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace Cosmo
+namespace Cosmo::UI
 {
-    namespace UI
-    {
     class FPSService final: public sf::Drawable, public IUpdatable
+    {
+    public:
+        FPSService()
         {
-        public:
-            FPSService()
-            {
-                font.loadFromFile("verdana.ttf");
-                text.setFillColor(sf::Color::Red);
-                text.setFont(font);
-            }
+            font.loadFromFile("verdana.ttf");
+            text.setFillColor(sf::Color::Red);
+            text.setFont(font);
+        }
 
-            inline void update(sf::Time dt)
-            {
-                fps = 1.f / dt.asSeconds();
-                text.setString("FPS: " + std::to_string(fps));
-            }
+        inline void update(sf::Time dt)
+        {
+            fps = 1.f / dt.asSeconds();
+            text.setString("FPS: " + std::to_string(fps));
+        }
 
-            inline virtual void draw(sf::RenderTarget &wnd, sf::RenderStates states) const override
-            {
-                wnd.draw(text);
-            }
+        inline virtual void draw(sf::RenderTarget &wnd, sf::RenderStates states) const override
+        {
+            wnd.draw(text);
+        }
 
-        private:
-            float fps;
-            sf::Font font;
-            sf::Text text;
-        };
-    }
+    private:
+        float fps;
+        sf::Font font;
+        sf::Text text;
+    };
 }
 
 #endif //COSMO_FPSSERVICE_H
