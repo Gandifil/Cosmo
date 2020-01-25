@@ -28,7 +28,7 @@ namespace Cosmo
                 }
 
 		        Entity::Cruiser *cruiser;
-		        Control::Controller *controlInit1, *controlInit2;
+		        Control::IController *controlInit1, *controlInit2;
             };
 
             Game(sf::RenderWindow &renderWindow, const Parameters& params);

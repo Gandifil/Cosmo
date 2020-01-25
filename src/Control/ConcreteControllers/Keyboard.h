@@ -5,14 +5,14 @@
 #ifndef COSMO_KEYBOARD_H
 #define COSMO_KEYBOARD_H
 
-#include "../Controller.h"
+#include "../IController.h"
 
 namespace Cosmo::Control {
-    class Keyboard : public Controller {
+    class Keyboard : public IController {
     public:
         Keyboard(IControllable &actor);
 
-        virtual bool onHandleEvent(sf::Event event) override;
+        virtual void handleEvent(sf::Event event) override;
 
     private:
         sf::Keyboard::Key shoot1, shoot2, abil1, abil2;

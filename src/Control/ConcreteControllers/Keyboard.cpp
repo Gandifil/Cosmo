@@ -6,7 +6,7 @@
 
 using namespace Cosmo::Control;
 
-Keyboard::Keyboard(IControllable &actor) : Controller(actor) {
+Keyboard::Keyboard(IControllable &actor) : IController(actor) {
         shoot1 = sf::Keyboard::Space;
         shoot2 = sf::Keyboard::LControl;
         abil1 = sf::Keyboard::RShift;
@@ -18,17 +18,14 @@ Keyboard::Keyboard(IControllable &actor) : Controller(actor) {
         right = sf::Keyboard::D;
 }
 
-bool Keyboard::onHandleEvent(sf::Event event) {
+void Keyboard::handleEvent(sf::Event event) {
     controlDirections();
     if (event.type == sf::Event::EventType::KeyReleased) {
-    if (event.key.code == shoot1) actor.MainShoot();
-    else if (event.key.code == shoot2) actor.AltShoot();
-    else if (event.key.code == abil1) actor.MainAbility();
-    else if (event.key.code == abil2) actor.AltAbility();
-    else return false;
-    } else return false;
-
-    return false;
+        if (event.key.code == shoot1) actor.MainShoot();
+        else if (event.key.code == shoot2) actor.AltShoot();
+        else if (event.key.code == abil1) actor.MainAbility();
+        else if (event.key.code == abil2) actor.AltAbility();
+    }
 }
 
 inline void Keyboard::controlDirections() {

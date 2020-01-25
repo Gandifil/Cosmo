@@ -7,22 +7,21 @@
 
 #include "../IEventHandler.h"
 #include "../IUpdatable.h"
-#include "Controller.h"
+#include "IController.h"
 
 namespace Cosmo::Control {
     class System: public IEventHandler {
     public:
-        System(std::initializer_list<Controller*> init_list) : controllers{init_list} { }
+        System(std::initializer_list<IController*> init_list) : controllers{init_list} { }
 
         inline void handleEvent(sf::Event event) override {
             for (auto item : controllers)
-                item->onHandleEvent(event);
+                item->handleEvent(event);
         }
 
     private:
-        std::vector<Controller*> controllers;
+        std::vector<IController*> controllers;
     };
 }
-
 
 #endif //COSMO_CONTROL_SYSTEM_H
