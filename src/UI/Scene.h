@@ -5,8 +5,8 @@
 #ifndef COSMO_UI_SCENE
 #define COSMO_UI_SCENE
 
-#include <SFML/Graphics.hpp>
 #include <stack>
+#include <SFML/System/NonCopyable.hpp>
 #include "../IUpdatable.h"
 #include "../IEventHandler.h"
 

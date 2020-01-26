@@ -5,6 +5,8 @@
 #ifndef COSMO_IEVENTHANDLER_H
 #define COSMO_IEVENTHANDLER_H
 
+#include <SFML/Window/Event.hpp>
+
 namespace Cosmo {
     class IEventHandler {
     public:
