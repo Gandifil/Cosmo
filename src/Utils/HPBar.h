@@ -6,7 +6,7 @@
 #define COSMO_HPBAR_H
 
 #include "ParameterBar.h"
-#include "../Entity/Starship.h"
+#include "../Entities/Starship.h"
 
 namespace Cosmo
 {
@@ -15,17 +15,17 @@ namespace Cosmo
         class HPBar: public ParameterBar
         {
         public:
-            HPBar(const sf::Vector2f& pos, float width, float height, const Cosmo::Entity::IHPOwner& owner)
-                    :ParameterBar{sf::Color::Green, pos, width, height}, owner{ owner}
+            HPBar(const sf::Vector2f& pos, float width, float height, const Cosmo::Entities::HealthPoints& owner)
+                    :ParameterBar{sf::Color::Green, pos, width, height}, hp{ owner}
             {}
 
             inline void UpdateValue()
             {
-                setValue(owner.getHP(), owner.getMaxHP());
+                setValue(hp.getValue(), hp.getMax());
             }
 
         private:
-            const Cosmo::Entity::IHPOwner& owner;
+            const Cosmo::Entities::HealthPoints& hp;
         };
     }
 }

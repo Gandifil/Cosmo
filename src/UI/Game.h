@@ -1,11 +1,10 @@
 #pragma once
 #include "Scene.h"
 #include "../Control/ConcreteControllers/Keyboard.h"
-#include "../Entity/Cruiser.h"
+#include "../Entities/Cruiser.h"
 #include "../Control/System.h"
-#include "../Entity/Service.h"
 #include "../Info/Manager.h"
-#include "../Entity/GameDirector.h"
+#include "../Entities/GameDirector.h"
 #include "../Utils/HPBar.h"
 #include <forward_list>
 #include <string>
@@ -23,7 +22,8 @@ namespace Cosmo
                 {
 					Info::Manager& m = Info::Manager::Instance();
 					m.Loading();
-                    cruiser = new Cruiser{{500, 500}, m.Cruisers["first"]};
+                    cruiser = Entities::Container::instance()
+                            .addPlayer<Entity::Cruiser>(sf::Vector2f{500, 500}, m.Cruisers["first"]);
                     controlInit1 = new Control::Keyboard{*cruiser};
                 }
 
@@ -45,7 +45,6 @@ namespace Cosmo
             sf::RenderWindow &renderWindow;
 			Control::System controlling;
 			Entity::GameDirector gameDirector;
-			Entity::Service& entities;
 			Utils::HPBar hpBar;
 		};
 	}

@@ -2,7 +2,7 @@
 // Created by Gandifil on 1/14/2019.
 //
 #pragma once
-#include "Service.h"
+#include "Container.h"
 #include "Enemy/Scout.h"
 #include "../Info/Manager.h"
 
@@ -13,7 +13,7 @@ namespace Cosmo
         class GameDirector final
         {
         public:
-            GameDirector(): entities{Service::Instance()}{};
+            GameDirector(Entities::Container& container): entities{ container } {};
 
             inline void Spawn(sf::Time dt)
             {
@@ -23,9 +23,9 @@ namespace Cosmo
 
                 if (spawnTime >= spawnEnemy)
                 {
-                    entities.enemies.Add(new Scout{
+                    entities.add<Scout>(
                             sf::Vector2f{500.f, 0.f},
-                            Info::Manager::Instance().Cruisers["scout1"]});
+                            Info::Manager::Instance().Cruisers["scout1"]);
 
                     spawnTime = 0;
                 }
@@ -34,7 +34,7 @@ namespace Cosmo
             }
 
         private:
-            Service& entities;
+            Entities::Container& entities;
         };
     }
 }

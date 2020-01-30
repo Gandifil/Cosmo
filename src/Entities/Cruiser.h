@@ -6,7 +6,7 @@
 namespace Cosmo
 {
 	namespace Entity {
-	    class Cruiser final : public Starship, public Cosmo::Control::IControllable {
+	    class Cruiser final : public Entities::Starship, public Cosmo::Control::IControllable {
 		public:
 
             Cruiser(const sf::Vector2f &vec, const Info::CruiserBox& box) :
@@ -16,7 +16,7 @@ namespace Cosmo
 			{
                 if (cruiserShader.loadFromFile("water.frag", sf::Shader::Fragment))
                 {
-                    shader = &cruiserShader;
+                    sprite.shader = &cruiserShader;
                 }
 
 			}

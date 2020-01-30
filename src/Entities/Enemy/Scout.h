@@ -11,7 +11,7 @@ namespace Cosmo
 {
     namespace Entity
     {
-        class Scout final : public Starship
+        class Scout final : public Entities::Starship
         {
         public:
             Scout(const sf::Vector2f& pos, const Info::CruiserBox& box):
@@ -48,7 +48,7 @@ namespace Cosmo
                 sprite.move(delta);
 
                 weapon.FireAlways(pos,
-                        Service::Instance().players.entities.front()->getPosition() - pos, dt);
+                        Entities::Container::instance().players.front()->getPosition() - pos, dt);
             }
 
         private:

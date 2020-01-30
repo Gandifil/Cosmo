@@ -10,23 +10,22 @@ void Game::handleEvent(sf::Event event)
 void Game::update(sf::Time dt)
 {
 	gameDirector.Spawn(dt);
-
-	entities.Update(dt);
+	Entities::Container::instance().update(dt);
+    Entities::Container::instance().destroyDead();
 	hpBar.UpdateValue();
 }
 
 void Game::Render()
 {
-	entities.Render(renderWindow);
+    Entities::Container::instance().draw(renderWindow, sf::RenderStates{});
 	renderWindow.draw(hpBar);
 }
 
 Game::Game(sf::RenderWindow& window, const Parameters& params):
 	renderWindow{window},
 	controlling{params.controlInit1},
-	entities{Entity::Service::Instance()},
-	hpBar{sf::Vector2f{1000, 1000}, 600.f, 50.f, *params.cruiser}
+	gameDirector{Entities::Container::instance()},
+	hpBar{sf::Vector2f{1000, 1000}, 600.f, 50.f, params.cruiser->getHP()}
 {
 	auto size = window.getSize();
-	entities.players.Add(params.cruiser);
 }

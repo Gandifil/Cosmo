@@ -5,8 +5,9 @@
 
 #include <TGUI/Vector2f.hpp>
 #include <SFML/System.hpp>
-#include "../Entity/Service.h"
 #include "../Info/Manager.h"
+#include "../Entities/Container.h"
+#include "../Entities/Bullet.h"
 
 namespace Cosmo
 {
@@ -17,9 +18,7 @@ namespace Cosmo
         public:
             Weapon(const Info::WeaponBox& box, bool isPlayer):
                     shift{box.shift}, t{0}, reloadTime{box.reload},
-                    createBulletBox{box.bulletBox},
-                    handler{isPlayer ? Entity::Service::Instance().playersBullets:
-                            Entity::Service::Instance().enemiesBullets}
+                    createBulletBox{box.bulletBox}
             {}
 
             inline void Update(sf::Time dt)
@@ -54,13 +53,12 @@ namespace Cosmo
             {
                 t = reloadTime;
 
-                handler.Add(new Bullet{createBulletBox, shift + pos, dir});
+                Entities::Container::instance().add<Entity::Bullet>(createBulletBox, shift + pos, dir);
             }
 
             float t, reloadTime;
             const Info::BulletBox& createBulletBox;
             sf::Vector2f shift;
-            Handler<Bullet>& handler;
         };
     }
 }

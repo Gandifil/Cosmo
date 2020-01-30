@@ -5,18 +5,20 @@
 
 #include <TGUI/Vector2f.hpp>
 #include "IDestroyable.h"
-#include "ISpriteOwner.h"
+#include "EntitySprite.h"
 #include "../Utils/Trajectory.h"
 #include "../Info/Config.h"
 #include "../Utils/VectorUtils.h"
+#include "IEntity.h"
+#include "../Info/TypeBoxes.h"
 
 namespace Cosmo
 {
     namespace Entity {
-        class Bullet : public IDestroyable, public ISpriteOwner, public IUpdatable {
+        class Bullet : public Entities::IEntity {
         public:
             Bullet(const Info::BulletBox &box, const sf::Vector2f &pos, const sf::Vector2f &dir) :
-                    ISpriteOwner{box.texture, pos},
+                    sprite{box.texture, pos},
                     trajectory(pos, Utils::Normalize(dir), Cosmo::Utils::linear10, box.speed)
                     {}
 
@@ -34,14 +36,18 @@ namespace Cosmo
 
                 sprite.setRotation(trajectory.GetAngle());
             }
-
-            inline void ColliseEvent(Starship& entity)
-            {
-                entity.Damage(100);
-                Die();
+//
+//            inline void ColliseEvent(Starship& entity)
+//            {
+//                entity.Damage(100);
+//                Die();
+//            }
+        protected:
+            virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override {
+                sprite.drawUsingShader(target, states);
             }
-
         private:
+            Entities::EntitySprite sprite;
             Cosmo::Utils::Trajectory trajectory;
         };
     }
