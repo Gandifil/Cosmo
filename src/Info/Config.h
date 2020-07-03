@@ -28,62 +28,50 @@ static std::string trim(const std::string& str)
 	return trim_left(trim_right(str));
 }
 
-namespace Cosmo
-{
-	namespace Info
-	{
-		class Config
-		{
-		public:
-			// don't use _size!! only for inside algorthms
-			enum ConfigParam { WWindow, HWindow, isFullScreen, _size };
+namespace Cosmo::Info {
+    class Config final {
+    public:
+        // don't use _size!! only for inside algorthms
+        enum ConfigParam { WWindow, HWindow, isFullScreen, _size };
 
-			static Config& Instance()
-			{
-				static Config s;
-				return s;
-			}
+        static Config& Instance() {
+            static Config s;
+            return s;
+        }
 
-			int getParam(ConfigParam index) const
-			{
-				return values[index];
-			}
+        int getParam(ConfigParam index) const {
+            return values[index];
+        }
 
-			Config(Config const&) = delete;
+        Config(Config const&) = delete;
 
-			Config& operator= (Config const&) = delete;
+        Config& operator= (Config const&) = delete;
 
-		private:
-			int values[ConfigParam::_size];
+    private:
+        int values[ConfigParam::_size];
 
-			Config()
-			{
-				std::string optionsName[ConfigParam::_size] = { "WWindow", "HWindow", "isFullScreen" };
-				std::string fileName = "options.txt";
+        Config() {
+            std::string optionsName[ConfigParam::_size] = { "WWindow", "HWindow", "isFullScreen" };
+            std::string fileName = "options.txt";
 
-				std::ifstream file(fileName);
-				if (!file)
-					throw ("Can't open file " + fileName);
+            std::ifstream file(fileName);
+            if (!file)
+                throw ("Can't open file " + fileName);
 
-				std::string buf;
-				while (getline(file, buf))
-				{
-					if (buf.substr(0, 2) == "//" || buf.empty()) continue;
-					size_t k = buf.find("=");
-					std::string name = trim(buf.substr(0, k));
-					std::string value = buf.substr(k + 1, buf.length() - k + 1);
+            std::string buf;
+            while (getline(file, buf))
+            {
+                if (buf.substr(0, 2) == "//" || buf.empty()) continue;
+                size_t k = buf.find("=");
+                std::string name = trim(buf.substr(0, k));
+                std::string value = buf.substr(k + 1, buf.length() - k + 1);
 
-					for (size_t i = 0; i < ConfigParam::_size; i++)
-						if (name == optionsName[i])
-						{
-							values[i] = std::stoi(value);
-							break;
-						}
-				}
-				file.close();
-			}
-
-			~Config() {  }
-		};
-	}
+                for (size_t i = 0; i < ConfigParam::_size; i++)
+                    if (name == optionsName[i]) {
+                        values[i] = std::stoi(value);
+                        break;
+                    }
+            }
+        }
+    };
 }
