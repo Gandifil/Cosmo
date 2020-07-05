@@ -28,12 +28,11 @@ namespace Cosmo {
     using namespace Cosmo::UI;
 
     Application::Application(): window{ Cosmo::Info::Config::Instance() } {
-        Scene::toNext(new MainMenu{ window.getRenderWindow() });
+        Scene::toNext(std::make_unique<UI::MainMenu>(window.getRenderWindow()));
     };
 
     int Application::run(){
-        while(isRunning())
-        {
+        while(isRunning()) {
             handleEvents();
             static sf::Clock clock;
             update(clock.restart());
@@ -44,13 +43,13 @@ namespace Cosmo {
 
     inline void Application::update(sf::Time dt) {
         window.update(dt);
-        Scene::current()->update(dt);
+        Scene::current().update(dt);
     }
 
     inline void Application::handleEvents(){
         sf::Event event;
         while (window.getRenderWindow().pollEvent(event))
-            Scene::current()->handleEvent(event);
+            Scene::current().handleEvent(event);
     }
 
     inline bool Application::isRunning(){

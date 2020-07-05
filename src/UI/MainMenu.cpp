@@ -24,8 +24,7 @@ MainMenu::MainMenu(sf::RenderWindow &wnd) :
 	button->setPosition("50%", "60%");
 	button->setSize("10%", "10%");
 	button->setTextSize(35);
-	button->connect("pressed", [&]() 
-	{
-		Scene::toNext(new Game{ wnd });
+	button->connect("pressed", [&]() {
+		Scene::toNext(std::make_unique<Game>(wnd));
 	});
 }
