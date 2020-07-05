@@ -2,9 +2,9 @@
 
 using namespace Cosmo::UI;
 
-void Game::handleEvent(sf::Event event)
+bool Game::handleEvent(sf::Event event) noexcept
 {
-	controlling.handleEvent(event);
+	return controlling.handleEvent(event);
 }
 
 void Game::update(sf::Time dt)

@@ -12,11 +12,12 @@
 namespace Cosmo::Control {
     class System: public IEventHandler {
     public:
-        System(std::initializer_list<IController*> init_list) : controllers{init_list} { }
+        explicit System(std::initializer_list<IController*> init_list) noexcept : controllers{init_list} { }
 
-        inline void handleEvent(sf::Event event) override {
+        inline bool handleEvent(sf::Event event) noexcept override {
             for (auto item : controllers)
-                item->handleEvent(event);
+                if (item->handleEvent(event))
+                    return true;
         }
 
     private:

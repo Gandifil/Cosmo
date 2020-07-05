@@ -19,8 +19,7 @@ namespace Cosmo::Control {
 	/// <summary>
 	///  Interface for game object which may be under control by player.
 	/// </summary>
-	class IControllable
-	{
+	class IControllable {
 	public:
 		virtual void MainShoot() = 0;
 		virtual void AltShoot() = 0;

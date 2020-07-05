@@ -10,15 +10,15 @@
 namespace Cosmo::Control {
     class Keyboard : public IController {
     public:
-        Keyboard(IControllable &actor);
+        explicit Keyboard(IControllable &actor) noexcept;
 
-        virtual void handleEvent(sf::Event event) override;
+        virtual bool handleEvent(sf::Event event) noexcept override;
 
     private:
         sf::Keyboard::Key shoot1, shoot2, abil1, abil2;
         sf::Keyboard::Key top, down, left, right;
 
-        inline void controlDirections();
+        inline void controlDirections() ;
     };
 }
 

@@ -49,7 +49,9 @@ namespace Cosmo {
     inline void Application::handleEvents(){
         sf::Event event;
         while (window.getRenderWindow().pollEvent(event))
-            Scene::current().handleEvent(event);
+            if (!Scene::current().handleEvent(event))
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+                    isAlive = false;
     }
 
     inline bool Application::isRunning(){

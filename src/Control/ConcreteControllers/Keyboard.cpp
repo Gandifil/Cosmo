@@ -6,7 +6,7 @@
 
 using namespace Cosmo::Control;
 
-Keyboard::Keyboard(IControllable &actor) : IController(actor) {
+Keyboard::Keyboard(IControllable &actor) noexcept : IController(actor) {
         shoot1 = sf::Keyboard::Space;
         shoot2 = sf::Keyboard::LControl;
         abil1 = sf::Keyboard::RShift;
@@ -18,21 +18,33 @@ Keyboard::Keyboard(IControllable &actor) : IController(actor) {
         right = sf::Keyboard::D;
 }
 
-void Keyboard::handleEvent(sf::Event event) {
+bool Keyboard::handleEvent(sf::Event event) noexcept {
     controlDirections();
-    if (event.type == sf::Event::EventType::KeyReleased) {
-        if (event.key.code == shoot1) actor.MainShoot();
-        else if (event.key.code == shoot2) actor.AltShoot();
-        else if (event.key.code == abil1) actor.MainAbility();
-        else if (event.key.code == abil2) actor.AltAbility();
+    if (event.type == sf::Event::EventType::KeyPressed) {
+        if (event.key.code == shoot1) {
+            actor.MainShoot();
+            return true;
+        }
+        if (event.key.code == shoot2) {
+            actor.AltShoot();
+            return true;
+        }
+        if (event.key.code == abil1) {
+            actor.MainAbility();
+            return true;
+        }
+        if (event.key.code == abil2) {
+            actor.AltAbility();
+            return true;
+        }
     }
+    return false;
 }
 
 inline void Keyboard::controlDirections() {
-    Directions buffer;
+    auto& buffer = actor.directions;
     buffer.top = sf::Keyboard::isKeyPressed(top);
     buffer.down = sf::Keyboard::isKeyPressed(down);
     buffer.left = sf::Keyboard::isKeyPressed(left);
     buffer.right = sf::Keyboard::isKeyPressed(right);
-    actor.directions = buffer;
 }

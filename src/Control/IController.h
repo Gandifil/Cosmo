@@ -11,7 +11,7 @@
 namespace Cosmo::Control {
 	class IController: public IEventHandler {
 	public:
-		IController(IControllable &actor) : actor{ actor } {}
+		IController(IControllable &actor) noexcept : actor{ actor } {}
 
 	protected:
 		IControllable &actor;

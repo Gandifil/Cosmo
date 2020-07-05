@@ -10,7 +10,7 @@
 namespace Cosmo {
     class IEventHandler {
     public:
-        virtual void handleEvent(sf::Event event) = 0;
+        virtual bool handleEvent(sf::Event event) noexcept { return false; }
     };
 }
 
