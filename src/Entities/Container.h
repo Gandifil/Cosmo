@@ -8,6 +8,7 @@
 #include <vector>
 #include "IEntity.h"
 #include "BlockAllocator.h"
+#include "Bullet.h"
 
 namespace Cosmo::Entities {
 
@@ -38,10 +39,24 @@ namespace Cosmo::Entities {
                 entity->update(dt);
         }
 
+        inline void checkCollision()  {
+            for(auto entity: entities) {
+                auto starship = dynamic_cast<Starship*>(entity);
+                if (starship)
+                    for(auto entity: entities) {
+                        auto bullet = dynamic_cast<Bullet*>(entity);
+                        if (bullet)
+                            if (starship->team() != bullet->team() && starship->isColliseWith(bullet)) {
+                                bullet->colliseWith(starship);
+                                starship->colliseWith(bullet);
+                            }
+                    }
+            }
+        }
+
         inline void destroyDead() {
             entities.remove_if([&](auto entity) {
-                if (entity->isDead())
-                {
+                if (entity->isDead()) {
                     allocator.deallocate(entity);
                     return true;
                 }

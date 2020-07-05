@@ -1,19 +1,14 @@
 #pragma once
 
-namespace Cosmo
-{
-	namespace Entity
-	{
-		class IDestroyable
-		{
-		public:
-			inline bool isDead() { return dead; }
+namespace Cosmo::Entities {
+    class IDestroyable {
+    public:
+        inline bool isDead() { return dead; }
 
-		protected:
-			void Die() { dead = true; }
+    protected:
+        void Die() { dead = true; }
 
-		private:
-			bool dead = false;
-		};
-	}
+    private:
+        bool dead = false;
+    };
 }

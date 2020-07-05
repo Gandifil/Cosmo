@@ -33,3 +33,5 @@ void Cosmo::Entity::Cruiser::update(sf::Time dt)
 	cruiserShader.setUniform("time", clock.getElapsedTime().asSeconds());
 	Move(dt, directions);
 }
+
+

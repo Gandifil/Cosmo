@@ -12,13 +12,12 @@
 #include "IEntity.h"
 #include "../Info/TypeBoxes.h"
 
-namespace Cosmo
-{
-    namespace Entity {
+namespace Cosmo {
+    namespace Entities {
         class Bullet : public Entities::IEntity {
         public:
-            Bullet(const Info::BulletBox &box, const sf::Vector2f &pos, const sf::Vector2f &dir) :
-                    sprite{box.texture, pos},
+            Bullet(const Info::BulletBox &box, int team, const sf::Vector2f &pos, const sf::Vector2f &dir) :
+                    sprite{box.texture, pos}, _team{ team },
                     trajectory(pos, Utils::Normalize(dir), Cosmo::Utils::linear10, box.speed)
                     {}
 
@@ -36,19 +35,29 @@ namespace Cosmo
 
                 sprite.setRotation(trajectory.GetAngle());
             }
-//
-//            inline void ColliseEvent(Starship& entity)
-//            {
-//                entity.Damage(100);
-//                Die();
-//            }
+
+            virtual void colliseWith(const IEntity* entity) noexcept override {
+                Die();
+            }
+
+            Entities::EntitySprite sprite;
+
+            virtual int team() const noexcept {
+                return _team;
+            };
+
+            inline virtual const sf::Vector2f& position() const noexcept override{
+                return sprite.getPosition();
+            }
+
         protected:
             virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override {
                 sprite.drawUsingShader(target, states);
             }
+
         private:
-            Entities::EntitySprite sprite;
             Cosmo::Utils::Trajectory trajectory;
+            int _team;
         };
     }
 }

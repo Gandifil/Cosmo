@@ -48,8 +48,12 @@ namespace Cosmo
                 sprite.move(delta);
 
                 weapon.FireAlways(pos,
-                        Entities::Container::instance().players.front()->getPosition() - pos, dt);
+                        Entities::Container::instance().players.front()->position() - pos, dt);
             }
+
+            virtual int team() const noexcept {
+                return 1;
+            };
 
         private:
             sf::Vector2f dstPoint;

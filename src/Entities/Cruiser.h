@@ -35,6 +35,9 @@ namespace Cosmo
 
 			virtual void update(sf::Time dt) override;
 
+            virtual int team() const noexcept {
+                return 0;
+            };
 	    private:
 	        Utils::DirectedWeapon leftGun, rightGun;
 	        sf::Shader cruiserShader;

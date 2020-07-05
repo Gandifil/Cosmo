@@ -18,7 +18,7 @@ namespace Cosmo
         public:
             Weapon(const Info::WeaponBox& box, bool isPlayer):
                     shift{box.shift}, t{0}, reloadTime{box.reload},
-                    createBulletBox{box.bulletBox}
+                    createBulletBox{box.bulletBox}, team{ isPlayer? 0 : 1 }
             {}
 
             inline void Update(sf::Time dt)
@@ -53,12 +53,13 @@ namespace Cosmo
             {
                 t = reloadTime;
 
-                Entities::Container::instance().add<Entity::Bullet>(createBulletBox, shift + pos, dir);
+                Entities::Container::instance().add<Entities::Bullet>(createBulletBox, team, shift + pos, dir);
             }
 
             float t, reloadTime;
             const Info::BulletBox& createBulletBox;
             sf::Vector2f shift;
+            int team;
         };
     }
 }

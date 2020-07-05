@@ -15,17 +15,17 @@ namespace Cosmo
         class HPBar: public ParameterBar
         {
         public:
-            HPBar(const sf::Vector2f& pos, float width, float height, const Cosmo::Entities::HealthPoints& owner)
+            HPBar(const sf::Vector2f& pos, float width, float height, const Cosmo::Entities::IHasHealthPoints& owner)
                     :ParameterBar{sf::Color::Green, pos, width, height}, hp{ owner}
             {}
 
             inline void UpdateValue()
             {
-                setValue(hp.getValue(), hp.getMax());
+                setValue(hp.HP(), hp.maxHP());
             }
 
         private:
-            const Cosmo::Entities::HealthPoints& hp;
+            const Cosmo::Entities::IHasHealthPoints& hp;
         };
     }
 }
