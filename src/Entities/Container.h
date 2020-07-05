@@ -64,6 +64,12 @@ namespace Cosmo::Entities {
             });
         }
 
+        inline void clear() noexcept {
+            players.clear();
+            entities.clear();
+            allocator.deallocateAll();
+        }
+
         static Container& instance() {
             static Container container;
             return container;

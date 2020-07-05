@@ -9,11 +9,20 @@ void Game::handleEvent(sf::Event event)
 
 void Game::update(sf::Time dt)
 {
+    hpBar.UpdateValue();
 	gameDirector.Spawn(dt);
-    Entities::Container::instance().checkCollision();
-	Entities::Container::instance().update(dt);
-    Entities::Container::instance().destroyDead();
-	hpBar.UpdateValue();
+
+	static Entities::Container& container = Entities::Container::instance();
+    container.checkCollision();
+    container.update(dt);
+	for(auto player: container.players)
+	    if (player->isDead()) {
+            backToLastScene();
+            container.clear();
+	        return;
+	    }
+
+    container.destroyDead();
 }
 
 void Game::Render()

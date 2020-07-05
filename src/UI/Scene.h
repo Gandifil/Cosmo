@@ -24,6 +24,11 @@ namespace Cosmo::UI {
 		inline static Scene* current(){
 			return stack().top();
 		}
+
+	protected:
+	    inline void backToLastScene() noexcept {
+		    stack().pop();
+		}
 	};
 }
 
