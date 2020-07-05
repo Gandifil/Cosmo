@@ -21,12 +21,12 @@ namespace Cosmo::UI {
 			gui.updateTime(dt);
 		};
 
-		virtual void Render() override {
-			gui.draw();
-		}
+        inline void draw(sf::RenderTarget &wnd, sf::RenderStates states) const noexcept {
+            gui.draw();
+        }
 
 	protected:
-		tgui::Gui gui;
+		mutable tgui::Gui gui;
 	};
 }
 #endif

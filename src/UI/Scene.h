@@ -7,11 +7,12 @@
 
 #include <stack>
 #include <SFML/System/NonCopyable.hpp>
+#include <SFML/Graphics/Drawable.hpp>
 #include "../IUpdatable.h"
 #include "../IEventHandler.h"
 
 namespace Cosmo::UI {
-	class Scene: public sf::NonCopyable, public IUpdatable, public IEventHandler {
+    class Scene: public sf::Drawable, public sf::NonCopyable, public IUpdatable, public IEventHandler {
     private:
         inline static auto& stack() noexcept {
             static std::stack<Scene*> stack;
@@ -19,8 +20,6 @@ namespace Cosmo::UI {
         }
 
 	public:
-		virtual void Render() = 0;
-
 		inline static Scene* current() noexcept {
 			return stack().top();
 		}

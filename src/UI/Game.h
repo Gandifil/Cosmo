@@ -39,7 +39,7 @@ namespace Cosmo
 
             virtual void update(sf::Time dt) override;
 
-            virtual void Render() override;
+            virtual void draw(sf::RenderTarget &wnd, sf::RenderStates states) const noexcept override;
 
 		private:
             sf::RenderWindow &renderWindow;

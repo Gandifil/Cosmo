@@ -25,8 +25,7 @@ void Game::update(sf::Time dt)
     container.destroyDead();
 }
 
-void Game::Render()
-{
+void Game::draw(sf::RenderTarget &wnd, sf::RenderStates states) const noexcept {
     Entities::Container::instance().draw(renderWindow, sf::RenderStates{});
 	renderWindow.draw(hpBar);
 }
