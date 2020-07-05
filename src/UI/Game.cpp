@@ -17,7 +17,7 @@ void Game::update(sf::Time dt)
     container.update(dt);
 	for(auto player: container.players)
 	    if (player->isDead()) {
-            backToLastScene();
+            Scene::backToLast();
             container.clear();
 	        return;
 	    }

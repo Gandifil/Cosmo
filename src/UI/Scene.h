@@ -12,21 +12,30 @@
 
 namespace Cosmo::UI {
 	class Scene: public sf::NonCopyable, public IUpdatable, public IEventHandler {
+    private:
+        inline static auto& stack() noexcept {
+            static std::stack<Scene*> stack;
+            return stack;
+        }
+
 	public:
 		virtual void Render() = 0;
 
-		inline static auto& stack()
-		{
-			static std::stack<Scene*> stack;
-			return stack;
-		}
-
-		inline static Scene* current(){
+		inline static Scene* current() noexcept {
 			return stack().top();
 		}
 
+        inline static void toNext(Scene* scene) noexcept {
+            stack().push(scene);
+        }
+
+        inline static void change(Scene* scene) noexcept {
+            backToLast();
+            toNext(scene);
+        }
+
 	protected:
-	    inline void backToLastScene() noexcept {
+	    inline static void backToLast() noexcept {
 		    stack().pop();
 		}
 	};

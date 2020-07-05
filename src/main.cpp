@@ -2,5 +2,5 @@
 
 int main() {
 	Cosmo::Application app{};
-	return app.exec();
+	return app.run();
 }

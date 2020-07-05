@@ -10,15 +10,14 @@
 #include "IUpdatable.h"
 
 namespace Cosmo {
-    class Application final: public IUpdatable {
+    class Application final: public IUpdatable, public sf::NonCopyable {
     public:
         Application();
 
-        int exec();
+        int run();
 
     private:
         Cosmo::UI::Window window;
-        sf::Clock clock;
         bool isAlive = true;
 
         inline void update(sf::Time dt) override;
@@ -28,16 +27,15 @@ namespace Cosmo {
 
     using namespace Cosmo::UI;
 
-    Application::Application():
-            window{ Cosmo::Info::Config::Instance() }
-    {
-        Scene::stack().push(new MainMenu{ window.getRenderWindow() });
+    Application::Application(): window{ Cosmo::Info::Config::Instance() } {
+        Scene::toNext(new MainMenu{ window.getRenderWindow() });
     };
 
-    int Application::exec(){
+    int Application::run(){
         while(isRunning())
         {
             handleEvents();
+            static sf::Clock clock;
             update(clock.restart());
             window.Render();
         }

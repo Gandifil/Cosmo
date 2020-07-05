@@ -26,6 +26,6 @@ MainMenu::MainMenu(sf::RenderWindow &wnd) :
 	button->setTextSize(35);
 	button->connect("pressed", [&]() 
 	{
-		stack().push(new Game{ wnd });
+		Scene::toNext(new Game{ wnd });
 	});
 }
