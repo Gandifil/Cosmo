@@ -33,13 +33,7 @@ namespace Cosmo
 
 			virtual ~ Cruiser() override {}
 
-			virtual void MainShoot() override;
-
-			virtual void AltShoot() override {}
-
-			virtual void MainAbility() override {}
-
-			virtual void AltAbility() override {}
+			virtual void mainShoot() override;
 
 			inline void Move(sf::Time dt, Cosmo::Control::Directions d);
 

@@ -22,19 +22,19 @@ bool Keyboard::handleEvent(sf::Event event) noexcept {
     controlDirections();
     if (event.type == sf::Event::EventType::KeyPressed) {
         if (event.key.code == shoot1) {
-            actor.MainShoot();
+            actor.mainShoot();
             return true;
         }
         if (event.key.code == shoot2) {
-            actor.AltShoot();
+            actor.altShoot();
             return true;
         }
         if (event.key.code == abil1) {
-            actor.MainAbility();
+            actor.mainAbility();
             return true;
         }
         if (event.key.code == abil2) {
-            actor.AltAbility();
+            actor.altAbility();
             return true;
         }
     }

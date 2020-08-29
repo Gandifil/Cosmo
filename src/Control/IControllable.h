@@ -21,10 +21,10 @@ namespace Cosmo::Control {
 	/// </summary>
 	class IControllable {
 	public:
-		virtual void MainShoot() = 0;
-		virtual void AltShoot() = 0;
-		virtual void MainAbility() = 0;
-		virtual void AltAbility() = 0;
+		virtual void mainShoot() {};
+		virtual void altShoot() {};
+		virtual void mainAbility() {};
+		virtual void altAbility() {};
 
 		Directions directions;
 	};

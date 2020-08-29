@@ -10,7 +10,7 @@ void Cosmo::Entities::Mothership::Move(sf::Time dt, Cosmo::Control::Directions d
     cannon.setRotation(angle);
 }
 
-void Cosmo::Entities::Mothership::MainShoot() {
+void Cosmo::Entities::Mothership::mainShoot() {
     auto angle = cannon.getRotation() * M_PI / 180.;
     const sf::Vector2f up{
         static_cast<float>(sin(angle)),

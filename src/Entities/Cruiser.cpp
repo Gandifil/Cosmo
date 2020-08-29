@@ -16,7 +16,7 @@ void Cosmo::Entity::Cruiser::Move(sf::Time dt, Cosmo::Control::Directions d)
 	sprite.move(shift);
 }
 
-void Cosmo::Entity::Cruiser::MainShoot()
+void Cosmo::Entity::Cruiser::mainShoot()
 {
 	auto pos = sprite.getPosition();
 
