@@ -14,8 +14,18 @@ namespace Cosmo
         class Scout final : public Entities::Starship
         {
         public:
-            Scout(const sf::Vector2f& pos, const Info::CruiserBox& box):
-                Starship{pos, box.starshipBox}, weapon{box.leftWeapon, false}
+            struct Parameters : public Entities::Starship::Parameters {
+                Parameters(const sol::table& lua):
+                        Entities::Starship::Parameters{ lua },
+                        cannon{Info::ResourcesStorage::get<sf::Texture>(lua["texture"])},
+                        weapon{ lua["weapon"].get<sol::table>() }{}
+
+                Utils::Weapon::Parameters weapon;
+                const sf::Texture& cannon;
+            };
+
+            Scout(const Parameters& parameters, const sf::Vector2f& pos):
+                Starship{parameters, pos}, weapon{parameters.weapon, false}
             {
                 Info::Config& conf = Info::Config::Instance();
                 int w = conf.getParam(Info::Config::WWindow);
@@ -30,9 +40,9 @@ namespace Cosmo
                 auto pos = sprite.getPosition();
                 sf::Vector2f delta = dstPoint - pos;
                 float sc = dt.asSeconds();
-                float top = speed.top * sc;
-                float down = speed.down * sc;
-                float side = speed.side * sc;
+                float top = parameters.up * sc;
+                float down = parameters.down * sc;
+                float side = parameters.side * sc;
                 if (abs(delta.x) > side)
                     delta.x = (delta.x > 0)? side : -side;
 

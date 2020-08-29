@@ -3,7 +3,6 @@
 #include "../Control/ConcreteControllers/Keyboard.h"
 #include "../Entities/Cruiser.h"
 #include "../Control/System.h"
-#include "../Info/Manager.h"
 #include "../Entities/GameDirector.h"
 #include "../Utils/HPBar.h"
 #include "../Entities/Mothership.h"
@@ -19,12 +18,9 @@ namespace Cosmo
         public:
 		    struct Parameters
             {
-		        Parameters()
-                {
-					Info::Manager& m = Info::Manager::Instance();
-					m.Loading();
+		        Parameters() {
                     sf::Vector2f point{800, 640};
-                    auto player = Entities::Container::instance().addPlayer<Entities::Mothership>(point, m.Cruisers["second"]);
+                    auto player = Entities::Container::instance().add<Entities::Mothership>("entities/mothership.lua", point);
                     controlInit1 = new Control::Keyboard{*player};
                     cruiser = player;
                 }

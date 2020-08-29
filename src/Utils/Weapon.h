@@ -5,7 +5,7 @@
 
 #include <TGUI/Vector2f.hpp>
 #include <SFML/System.hpp>
-#include "../Info/Manager.h"
+#include <sol/sol.hpp>
 #include "../Entities/Container.h"
 #include "../Entities/Bullet.h"
 
@@ -16,9 +16,24 @@ namespace Cosmo
         class Weapon
         {
         public:
-            Weapon(const Info::WeaponBox& box, bool isPlayer):
-                    shift{box.shift}, t{0}, reloadTime{box.reload},
-                    createBulletBox{box.bulletBox}, team{ isPlayer? 0 : 1 }
+            struct Parameters {
+                Parameters(const sol::table& lua):
+                    bullet{ Info::ResourcesStorage::get<Entities::Bullet::Parameters>(lua["bullet"]) } {
+                    reload = lua.get_or("reload", 1.);
+                    shift.x = lua["shift"]["x"];
+                    shift.y = lua["shift"]["y"];
+                    direction.x = lua["direction"]["x"];
+                    direction.y = lua["direction"]["y"];
+                }
+
+                const Entities::Bullet::Parameters& bullet;
+                float reload;
+                sf::Vector2f shift, direction;
+            };
+
+            Weapon(const Parameters& parameters, bool isPlayer):
+                    shift{parameters.shift}, t{0}, reloadTime{parameters.reload},
+                    bullet{parameters.bullet}, team{ isPlayer? 0 : 1 }
             {}
 
             inline void Update(sf::Time dt)
@@ -53,11 +68,12 @@ namespace Cosmo
             {
                 t = reloadTime;
 
-                Entities::Container::instance().add<Entities::Bullet>(createBulletBox, team, shift + pos, dir);
+                Entities::Container::instance().add<Entities::Bullet>(
+                        bullet, team, shift + pos, dir);
             }
 
             float t, reloadTime;
-            const Info::BulletBox& createBulletBox;
+            const Entities::Bullet::Parameters& bullet;
             sf::Vector2f shift;
             int team;
         };

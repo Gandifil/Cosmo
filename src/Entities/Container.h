@@ -6,6 +6,7 @@
 #define COSMO_CONTAINER_H
 
 #include <vector>
+#include <string>
 #include "IEntity.h"
 #include "BlockAllocator.h"
 #include "Bullet.h"
@@ -14,20 +15,31 @@ namespace Cosmo::Entities {
 
     class Container: public sf::Drawable, public IUpdatable {
     public:
+        template<typename T>
+        using ParametersType = typename T::Parameters;
+
         template<typename T, typename... Args>
-        inline T* add(Args&&... args) {
-            auto pointer = new (allocator.allocate(sizeof(T))) T{ std::forward<Args>(args)... };
-            entities.push_front(pointer);
-            return pointer;
+        inline T* add(const std::string& index, Args&&... args) {
+            auto parameters = Info::ResourcesStorage::get<ParametersType<T>>(index);
+            return add<T, Args... >(parameters, std::forward<Args>(args)... );
         }
 
         template<typename T, typename... Args>
-        inline T* addPlayer(Args&&... args) {
-            T* pointer = new (allocator.allocate(sizeof(T))) T{ std::forward<Args>(args)... };
+        inline T* add(const ParametersType<T>& parameters, Args&&... args) {
+            auto pointer = new (allocator.allocate(sizeof(T))) T{parameters, std::forward<Args>(args)... };
             entities.push_front(pointer);
-            players.push_back(pointer);
+            if constexpr (std::is_base_of_v<Control::IControllable, T>)
+                players.push_back(pointer);
             return pointer;
         }
+//
+//        template<typename T, typename... Args>
+//        inline T* addPlayer(const std::string& index, Args&&... args) {
+//            auto parameters = Info::ResourcesStorage::get<T::Parameters>(index);
+//            T* pointer = new (allocator.allocate(sizeof(T))) T{parameters,  std::forward<Args>(args)... };
+//            entities.push_front(pointer);
+//            return pointer;
+//        }
 
         inline void draw(sf::RenderTarget &target, sf::RenderStates states) const override {
             for(auto entity: entities)
@@ -79,6 +91,15 @@ namespace Cosmo::Entities {
     private:
         BlockAllocator<IEntity, 250, 1024> allocator;
         std::forward_list<IEntity *> entities;
+
+        template<typename T, typename... Args>
+        inline T* _add(Args&&... args) {
+            auto pointer = new (allocator.allocate(sizeof(T))) T{std::forward<Args>(args)... };
+            entities.push_front(pointer);
+            if constexpr (std::is_base_of_v<Control::IControllable, T>)
+                players.push_back(pointer);
+            return pointer;
+        }
     };
 }
 

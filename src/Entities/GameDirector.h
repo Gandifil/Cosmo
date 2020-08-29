@@ -4,7 +4,6 @@
 #pragma once
 #include "Container.h"
 #include "Enemy/Scout.h"
-#include "../Info/Manager.h"
 
 namespace Cosmo
 {
@@ -23,9 +22,9 @@ namespace Cosmo
 
                 if (spawnTime >= spawnEnemy)
                 {
-                    entities.add<Scout>(
-                            sf::Vector2f{500.f, 0.f},
-                            Info::Manager::Instance().Cruisers["scout1"]);
+                    //entities.add<Scout>(
+                    //        "scout1",
+                    //        sf::Vector2f{500.f, 0.f});
 
                     spawnTime = 0;
                 }

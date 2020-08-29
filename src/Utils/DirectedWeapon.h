@@ -13,8 +13,8 @@ namespace Cosmo
         class DirectedWeapon final: public Weapon
         {
         public:
-            DirectedWeapon(const Info::WeaponBox& box, bool isPlayer):
-                    Weapon{box, isPlayer}, direction{box.direction}
+            DirectedWeapon(const Weapon::Parameters& parameters, bool isPlayer):
+                    Weapon{parameters, isPlayer}, direction{parameters.direction}
             {}
 
             inline bool TryFire(const sf::Vector2f& pos)

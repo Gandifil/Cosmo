@@ -1,16 +1,31 @@
 #pragma once
 #include "EntitySprite.h"
+#include <sol/sol.hpp>
 #include "IEntity.h"
-#include "../Info/TypeBoxes.h"
 #include "IHasHealthPoints.h"
+#include "../Info/ResourcesStorage.h"
 
 namespace Cosmo::Entities {
     class Starship : public IEntity, public IHasHealthPoints {
     public:
-        Starship(const sf::Vector2f &vec, const Info::StarshipBox& box) :
-                IHasHealthPoints{box.maxHP },
-                sprite{ box.texture, vec },
-                speed{ box.speed }{}
+        struct Parameters {
+            Parameters(const sol::table& lua):
+                texture{Info::ResourcesStorage::get<sf::Texture>(lua["texture"])} {
+                maxHP = lua.get_or("maxHP", 1000);
+                up = lua.get_or("up", 0);
+                down = lua.get_or("down", 0);
+                side = lua.get_or("side", 0);
+            }
+
+            const sf::Texture& texture;
+            int maxHP;
+            int up, down, side;
+        };
+
+        Starship(const Parameters& parameters, const sf::Vector2f &vec) :
+                IHasHealthPoints{parameters.maxHP },
+                sprite{ parameters.texture, vec },
+                parameters{ parameters }{}
 
 
         inline virtual void colliseWith(const IEntity* entity) noexcept override {
@@ -33,7 +48,7 @@ namespace Cosmo::Entities {
         }
 
         EntitySprite sprite;
-        Info::SpeedBox speed;
+        const Parameters& parameters;
     };
 }
 

@@ -8,11 +8,21 @@ namespace Cosmo
 	namespace Entity {
 	    class Cruiser final : public Entities::Starship, public Cosmo::Control::IControllable {
 		public:
+	        struct Parameters : public Entities::Starship::Parameters {
+                Parameters(const sol::table& lua):
+                        Entities::Starship::Parameters{ lua },
+                        leftWeapon{ lua["leftWeapon"].get<sol::table>() } ,
+                        rightWeapon{ lua["rightWeapon"].get<sol::table>() }
+                {}
 
-            Cruiser(const sf::Vector2f &vec, const Info::CruiserBox& box) :
-                    Starship{vec, box.starshipBox},
-                    leftGun{box.leftWeapon, true},
-                    rightGun{box.rightWeapon, true}
+                Utils::Weapon::Parameters leftWeapon;
+                Utils::Weapon::Parameters rightWeapon;
+            };
+
+            Cruiser(const Parameters& parameters, const sf::Vector2f &vec) :
+                    Starship{parameters, vec},
+                    leftGun{parameters.leftWeapon, true},
+                    rightGun{parameters.rightWeapon, true}
 			{
                 if (cruiserShader.loadFromFile("water.frag", sf::Shader::Fragment))
                 {

@@ -8,7 +8,7 @@ MainMenu::MainMenu(sf::RenderWindow &wnd) :
 	Menu{ wnd },
 	label{Label::create("COSMO!")},
 	button{Button::create("Play")},
-    animation{ Info::Manager::Instance().Textures["title.png"], 9}
+    animation{ Info::ResourcesStorage::get<sf::Texture>("title.png"), 9}
 {
 	gui.add(label);
 	gui.add(button);

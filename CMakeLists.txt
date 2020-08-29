@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(SFML_ROOT_PREFIX "C:/SFML-2.5.1" CACHE STRING "Root of SFML library. Must has include, lib and bin folder.")
 set(TGUI_ROOT_PREFIX "C:/TGUI-0.8" CACHE STRING "Root of TGUI library. Must has include, lib and bin folder.")
-set(SOL2_ROOT_PREFIX "C:/sol2-develop" CACHE STRING "Root of sol2 library. Must has include folder.")
+# set(SOL2_ROOT_PREFIX "C:/sol2-develop" CACHE STRING "Root of sol2 library. Must has include folder.")
 set(LUA_ROOT_PREFIX "C:/Lua" CACHE STRING "Root of Lua. Must has include folder.")
 set(LUA_DLL "C:/Lua/lua53.dll" CACHE STRING "Root of Lua. Must has include folder.")
 
@@ -21,7 +21,7 @@ file(GLOB_RECURSE COSMO_SRC
         "src/*.h"
         "src/*.cpp")
 
-include_directories(${SOL2_ROOT_PREFIX}/single/include/sol)
+include_directories(SYSTEM ./include)
 include_directories(${LUA_ROOT_PREFIX}/include)
 FIND_LIBRARY(liblua lua53 liblua53 ${LUA_ROOT_PREFIX})
 

@@ -8,17 +8,30 @@
 #include "EntitySprite.h"
 #include "../Utils/Trajectory.h"
 #include "../Info/Config.h"
+#include <sol/sol.hpp>
 #include "../Utils/VectorUtils.h"
+#include "../Info/ResourcesStorage.h"
 #include "IEntity.h"
-#include "../Info/TypeBoxes.h"
 
 namespace Cosmo {
     namespace Entities {
         class Bullet : public Entities::IEntity {
         public:
-            Bullet(const Info::BulletBox &box, int team, const sf::Vector2f &pos, const sf::Vector2f &dir) :
-                    sprite{box.texture, pos}, _team{ team },
-                    trajectory(pos, Utils::Normalize(dir), Cosmo::Utils::linear10, box.speed)
+            struct Parameters {
+                explicit Parameters(const sol::table& lua):
+                    texture{Info::ResourcesStorage::get<sf::Texture>(lua["texture"])} {
+                    //trajectoryNum = lua["trajectoryNum"];
+                    speed = lua.get_or("speed", 0.);
+                }
+
+                const sf::Texture& texture;
+                //int trajectoryNum;
+                float speed;
+            };
+
+            Bullet(const Parameters &parameters, int team, const sf::Vector2f &pos, const sf::Vector2f &dir) :
+                    sprite{parameters.texture, pos}, _team{ team },
+                    trajectory(pos, Utils::Normalize(dir), Cosmo::Utils::linear10, parameters.speed)
                     {}
 
             virtual void update(sf::Time dt) override

@@ -5,19 +5,29 @@
 #ifndef COSMO_MOTHERSHIP_H
 #define COSMO_MOTHERSHIP_H
 
+#include <sol/sol.hpp>
 #include "Starship.h"
 #include "../Control/IControllable.h"
 #include "../Utils/Weapon.h"
 #include "../UI/Animation.h"
 
 namespace Cosmo::Entities{
-    class Mothership final : public Entities::Starship, public Cosmo::Control::IControllable {
+    class Mothership final : public Starship, public Cosmo::Control::IControllable {
     public:
+        struct Parameters : public Entities::Starship::Parameters {
+            Parameters(const sol::table& lua):
+                    Entities::Starship::Parameters{ lua },
+                    cannon{Info::ResourcesStorage::get<sf::Texture>(lua["cannon"])},
+                    weapon{ lua["weapon"].get<sol::table>() }{}
 
-        Mothership(const sf::Vector2f &vec, const Info::CruiserBox& box) :
-                Starship{vec, box.starshipBox},
-                gun{box.leftWeapon, true},
-                cannon{ Info::Manager::Instance().Textures["core_cannon.png"], 11}
+            Utils::Weapon::Parameters weapon;
+            const sf::Texture& cannon;
+        };
+
+        Mothership(const Parameters& parameters, const sf::Vector2f &vec) :
+                Starship{parameters, vec},
+                gun{parameters.weapon, true},
+                cannon{ parameters.cannon, 11}
         {
             cannon.stop();
             auto size = cannon.getTextureRect();

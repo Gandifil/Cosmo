@@ -9,8 +9,8 @@ void Cosmo::Entity::Cruiser::Move(sf::Time dt, Cosmo::Control::Directions d)
 	auto myPos = sprite.getPosition();
 
 	sf::Vector2f shift{
-		float((d.right? speed.side:0) - (d.left? speed.side:0)) ,
-		float((d.down? speed.down:0) - (d.top? speed.top:0)) };
+		float((d.right? parameters.side:0) - (d.left? parameters.side:0)) ,
+		float((d.down? parameters.down:0) - (d.top? parameters.up:0)) };
 	shift *= dt.asSeconds();
 
 	sprite.move(shift);
