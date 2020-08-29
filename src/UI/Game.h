@@ -6,6 +6,7 @@
 #include "../Info/Manager.h"
 #include "../Entities/GameDirector.h"
 #include "../Utils/HPBar.h"
+#include "../Entities/Mothership.h"
 #include <forward_list>
 #include <string>
 
@@ -22,12 +23,13 @@ namespace Cosmo
                 {
 					Info::Manager& m = Info::Manager::Instance();
 					m.Loading();
-                    cruiser = Entities::Container::instance()
-                            .addPlayer<Entity::Cruiser>(sf::Vector2f{500, 500}, m.Cruisers["first"]);
-                    controlInit1 = new Control::Keyboard{*cruiser};
+                    sf::Vector2f point{800, 640};
+                    auto player = Entities::Container::instance().addPlayer<Entities::Mothership>(point, m.Cruisers["second"]);
+                    controlInit1 = new Control::Keyboard{*player};
+                    cruiser = player;
                 }
 
-		        Entity::Cruiser *cruiser;
+		        Entities::Starship *cruiser;
 		        Control::IController *controlInit1, *controlInit2;
             };
 

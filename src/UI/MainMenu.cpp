@@ -7,7 +7,8 @@ using namespace tgui;
 MainMenu::MainMenu(sf::RenderWindow &wnd) : 
 	Menu{ wnd },
 	label{Label::create("COSMO!")},
-	button{Button::create("Play")}
+	button{Button::create("Play")},
+    animation{ Info::Manager::Instance().Textures["title.png"], 9}
 {
 	gui.add(label);
 	gui.add(button);
@@ -15,6 +16,7 @@ MainMenu::MainMenu(sf::RenderWindow &wnd) :
 	Cosmo::Info::Config &conf = Cosmo::Info::Config::Instance();
 	int width = conf.getParam(Cosmo::Info::Config::ConfigParam::WWindow);
 	int height = conf.getParam(Cosmo::Info::Config::ConfigParam::HWindow);
+    animation.setPosition(width / 2., height / 2.);
 
 	label->setPosition("50%", "40%");
 	label->setAutoSize(true);
