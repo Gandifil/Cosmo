@@ -1,7 +1,4 @@
 #include "Mothership.h"
-#include <math.h>
-
-using namespace Cosmo::Info;
 
 void Cosmo::Entities::Mothership::Move(sf::Time dt, Cosmo::Control::Directions d) {
     constexpr static auto angularVelocity = 20;
@@ -11,11 +8,8 @@ void Cosmo::Entities::Mothership::Move(sf::Time dt, Cosmo::Control::Directions d
 }
 
 void Cosmo::Entities::Mothership::mainShoot() {
-    auto angle = cannon.getRotation() * M_PI / 180.;
-    const sf::Vector2f up{
-        static_cast<float>(sin(angle)),
-        -static_cast<float>(cos(angle))};
-    gun.TryFire(sprite.getPosition(), up);
+    auto dir = Cosmo::Utils::ExtendedVector<float>::fromDegrees(cannon.getRotation() - 90.);
+    gun.TryFire(position(), dir);
 }
 
 void Cosmo::Entities::Mothership::update(sf::Time dt) {

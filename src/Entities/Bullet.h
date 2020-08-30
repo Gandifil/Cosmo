@@ -9,7 +9,7 @@
 #include "../Utils/Trajectory.h"
 #include "../Info/Config.h"
 #include <sol/sol.hpp>
-#include "../Utils/VectorUtils.h"
+#include "../Utils/ExtendedVector.h"
 #include "../Info/ResourcesStorage.h"
 #include "IEntity.h"
 
@@ -31,7 +31,7 @@ namespace Cosmo {
 
             Bullet(const Parameters &parameters, int team, const sf::Vector2f &pos, const sf::Vector2f &dir) :
                     sprite{parameters.texture, pos}, _team{ team },
-                    trajectory(pos, Utils::Normalize(dir), Cosmo::Utils::linear10, parameters.speed)
+                    trajectory(pos, Cosmo::Utils::ExtendedVector{ dir }.normalized(), Cosmo::Utils::linear10, parameters.speed)
                     {}
 
             virtual void update(sf::Time dt) override
