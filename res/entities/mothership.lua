@@ -13,8 +13,8 @@ this = {
     weapon = {
         bullet = "entities/cruiserLaser01.lua",
         reload = 2,
-        direction = {x = -32, y = -30},
-        shift = {x = 0, y = -120}
+        degrees = -90.,
+        position = {x = -128, y = -128},
     },
 }
 

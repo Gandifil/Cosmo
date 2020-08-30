@@ -25,7 +25,7 @@ namespace Cosmo
             };
 
             Scout(const Parameters& parameters, const sf::Vector2f& pos):
-                Starship{parameters, pos}, weapon{parameters.weapon, false}
+                Starship{parameters, pos}, weapon{parameters.weapon, *this}
             {
                 Info::Config& conf = Info::Config::Instance();
                 int w = conf.getParam(Info::Config::WWindow);
@@ -57,8 +57,7 @@ namespace Cosmo
 
                 sprite.move(delta);
 
-                weapon.FireAlways(pos,
-                        Entities::Container::instance().players.front()->position() - pos, dt);
+                weapon.fireAlways(dt);
             }
 
             virtual int team() const noexcept {

@@ -16,18 +16,14 @@ void Cosmo::Entity::Cruiser::Move(sf::Time dt, Cosmo::Control::Directions d)
 	sprite.move(shift);
 }
 
-void Cosmo::Entity::Cruiser::mainShoot()
-{
-	auto pos = sprite.getPosition();
-
-	leftGun.TryFire(pos);
-	rightGun.TryFire(pos);
+void Cosmo::Entity::Cruiser::mainShoot() {
+	leftGun.tryFire();
+	rightGun.tryFire();
 }
 
-void Cosmo::Entity::Cruiser::update(sf::Time dt)
-{
-	leftGun.Update(dt);
-	rightGun.Update(dt);
+void Cosmo::Entity::Cruiser::update(sf::Time dt) {
+	leftGun.update(dt);
+	rightGun.update(dt);
 
 	static sf::Clock clock;
 	cruiserShader.setUniform("time", clock.getElapsedTime().asSeconds());

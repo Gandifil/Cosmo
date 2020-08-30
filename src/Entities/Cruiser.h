@@ -1,7 +1,7 @@
 #pragma once
 #include "Starship.h"
 #include "../Control/IControllable.h"
-#include "../Utils/DirectedWeapon.h"
+#include "../Utils/Weapon.h"
 
 namespace Cosmo
 {
@@ -21,8 +21,8 @@ namespace Cosmo
 
             Cruiser(const Parameters& parameters, const sf::Vector2f &vec) :
                     Starship{parameters, vec},
-                    leftGun{parameters.leftWeapon, true},
-                    rightGun{parameters.rightWeapon, true}
+                    leftGun{parameters.leftWeapon, *this},
+                    rightGun{parameters.rightWeapon, *this}
 			{
                 if (cruiserShader.loadFromFile("water.frag", sf::Shader::Fragment))
                 {
@@ -42,8 +42,9 @@ namespace Cosmo
             virtual int team() const noexcept {
                 return 0;
             };
+
 	    private:
-	        Utils::DirectedWeapon leftGun, rightGun;
+	        Utils::Weapon leftGun, rightGun;
 	        sf::Shader cruiserShader;
 		};
 	}

@@ -19,8 +19,8 @@ this = {
             texture = "textures/laserCruiser01.png"
         },
         reload = 0.25,
-        direction = {-32, -30},
-        shift = {0, -120}
+        degrees = -90.,
+        position = {0, -120}
     },
     rightWeapon = {
         bullet = {
@@ -28,8 +28,8 @@ this = {
             texture = "textures/laserCruiser01.png"
         },
         reload = 0.25,
-        direction = {x = 32, y = -30},
-        shift = {x = 0, y = -120}
+        degrees = -90.,
+        position = {x = 0, y = -120}
     },
 }
 

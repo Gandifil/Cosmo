@@ -26,7 +26,7 @@ namespace Cosmo::Entities{
 
         Mothership(const Parameters& parameters, const sf::Vector2f &vec) :
                 Starship{parameters, vec},
-                gun{parameters.weapon, true},
+                gun{parameters.weapon, *this},
                 cannon{ parameters.cannon, 11}
         {
             cannon.stop();

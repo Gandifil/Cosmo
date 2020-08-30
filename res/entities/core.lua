@@ -18,8 +18,8 @@ this = {
             texture = "textures/plasmaBall.png"
         },
         reload = 5,
-        direction = {x = 0, y = 0},
-        shift = {x = 0, y = 0}
+        degrees = 90.,
+        position = {x = 0, y = 0}
     },
 }
 

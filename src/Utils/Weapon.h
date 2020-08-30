@@ -1,81 +1,85 @@
 //
 // Created by Gandifil on 1/12/2019.
 //
-#pragma once
+
+#ifndef COSMO_WEAPON_H
+#define COSMO_WEAPON_H
 
 #include <TGUI/Vector2f.hpp>
-#include <SFML/System.hpp>
 #include <sol/sol.hpp>
 #include "../Entities/Container.h"
 #include "../Entities/Bullet.h"
+#include "../Entities/Starship.h"
 
-namespace Cosmo
-{
-    namespace Utils
-    {
-        class Weapon
-        {
-        public:
-            struct Parameters {
-                Parameters(const sol::table& lua):
-                    bullet{ Info::ResourcesStorage::get<Entities::Bullet::Parameters>(lua["bullet"]) } {
-                    reload = lua.get_or("reload", 1.);
-                    shift.x = lua["shift"]["x"];
-                    shift.y = lua["shift"]["y"];
-                    direction.x = lua["direction"]["x"];
-                    direction.y = lua["direction"]["y"];
-                }
-
-                const Entities::Bullet::Parameters& bullet;
-                float reload;
-                sf::Vector2f shift, direction;
-            };
-
-            Weapon(const Parameters& parameters, bool isPlayer):
-                    shift{parameters.shift}, t{0}, reloadTime{parameters.reload},
-                    bullet{parameters.bullet}, team{ isPlayer? 0 : 1 }
-            {}
-
-            inline void Update(sf::Time dt)
-            {
-                if (t > 0) t-= dt.asSeconds();
+namespace Cosmo::Utils {
+    class Weapon: public IUpdatable {
+    public:
+        struct Parameters {
+            Parameters(const sol::table& lua):
+                bullet{ Info::ResourcesStorage::get<Entities::Bullet::Parameters>(lua["bullet"]) } {
+                reload = lua.get_or("reload", 1.);
+                degrees = lua.get_or("degrees", 1.);
+                position.x = lua["position"]["x"];
+                position.y = lua["position"]["y"];
             }
 
-            inline bool isReady()
-            {
-                return t <= 0;
-            }
-
-            inline bool TryFire(const sf::Vector2f& pos, const sf::Vector2f& dir)
-            {
-                if (isReady())
-                {
-                    Fire(pos, dir);
-                    return true;
-                }
-                return false;
-            }
-
-            inline bool FireAlways(const sf::Vector2f& pos, const sf::Vector2f& dir, sf::Time dt)
-            {
-                Update(dt);
-                return TryFire(pos, dir);
-            }
-
-        private:
-
-            inline void Fire(const sf::Vector2f& pos, const sf::Vector2f& dir)
-            {
-                t = reloadTime;
-
-                Entities::Container::instance().add<Entities::Bullet>(
-                        bullet, team, shift + pos, dir);
-            }
-
-            float t, reloadTime;
             const Entities::Bullet::Parameters& bullet;
-            sf::Vector2f shift;
-            int team;
+            float reload;
+            float degrees;
+            sf::Vector2f position;
         };
-    }
+
+        explicit Weapon(const Parameters& parameters, const Entities::Starship& owner):
+                t{0}, reloadTime{parameters.reload},
+                position{ parameters.position },
+                owner{ owner },
+                bullet{parameters.bullet}
+        {
+            setRotation(parameters.degrees);
+        }
+
+        inline void update(sf::Time dt) override {
+            if (t > 0) t-= dt.asSeconds();
+        }
+
+        inline bool isReady() const noexcept {
+            return t <= 0;
+        }
+
+        inline bool tryFire() noexcept {
+            if (isReady()) {
+                fire();
+                return true;
+            }
+            return false;
+        }
+
+        inline bool fireAlways(sf::Time dt) {
+            update(dt);
+            return tryFire();
+        }
+
+        inline void setRotation(float degrees) noexcept {
+            dir = Cosmo::Utils::ExtendedVector<float>::fromDegrees(degrees);
+        }
+    private:
+
+        inline void fire() {
+            t = reloadTime;
+
+            Entities::Container::instance().add<Entities::Bullet>(
+                    bullet,
+                    owner.team(),
+                    owner.position() + position,
+                    dir);
+        }
+
+        const Entities::Bullet::Parameters& bullet;
+        const Entities::Starship& owner;
+        sf::Vector2f position;
+        sf::Vector2f dir;
+        float t, reloadTime;
+    };
 }
+
+#endif // COSMO_WEAPON_H
