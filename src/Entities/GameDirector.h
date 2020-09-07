@@ -3,7 +3,7 @@
 //
 #pragma once
 #include "Container.h"
-#include "Enemy/Scout.h"
+#include "Enemies/Scout.h"
 
 namespace Cosmo
 {
@@ -12,6 +12,7 @@ namespace Cosmo
         class GameDirector final
         {
         public:
+
             GameDirector(Entities::Container& container): entities{ container } {};
 
             inline void Spawn(sf::Time dt)
@@ -20,11 +21,10 @@ namespace Cosmo
 
                 const float spawnEnemy = 10;
 
-                if (spawnTime >= spawnEnemy)
-                {
-                    //entities.add<Scout>(
-                    //        "scout1",
-                    //        sf::Vector2f{500.f, 0.f});
+                if (spawnTime >= spawnEnemy) {
+                    entities.add<Cosmo::Entities::Enemies::Scout>(
+                            "entities/core.lua",
+                            sf::Vector2f{500.f, 0.f});
 
                     spawnTime = 0;
                 }

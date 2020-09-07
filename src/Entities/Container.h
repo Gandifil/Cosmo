@@ -7,9 +7,11 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 #include "IEntity.h"
 #include "BlockAllocator.h"
 #include "Bullet.h"
+#include "../Control/IControllable.h"
 
 namespace Cosmo::Entities {
 
@@ -20,8 +22,13 @@ namespace Cosmo::Entities {
 
         template<typename T, typename... Args>
         inline T* add(const std::string& index, Args&&... args) {
-            auto parameters = Info::ResourcesStorage::get<ParametersType<T>>(index);
-            return add<T, Args... >(parameters, std::forward<Args>(args)... );
+            try {
+                auto parameters = Info::ResourcesStorage::get<ParametersType<T>>(index);
+                return add<T, Args... >(parameters, std::forward<Args>(args)... );
+            }
+            catch (const std::exception& str) {
+                std::cerr << str.what() << std::endl;
+            }
         }
 
         template<typename T, typename... Args>
