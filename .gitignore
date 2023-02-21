@@ -1,3 +1,13 @@
+# Visual Studio 2015/2017 cache/options directory
+.vs/
+
+# IDEA
+.idea/
+
+# cmake
+.cmake-build-debug/
+.cmake-build-release/
+
 # Prerequisites
 *.d
 
