@@ -48,7 +48,7 @@ namespace Cosmo::Entities {
         }
 
         EntitySprite sprite;
-        const Parameters& parameters;
+        const Parameters parameters;
     };
 }
 

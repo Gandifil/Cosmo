@@ -5,7 +5,7 @@
 #ifndef COSMO_WEAPON_H
 #define COSMO_WEAPON_H
 
-#include <TGUI/Vector2f.hpp>
+#include <tgui/Vector2.hpp>
 #include <sol/sol.hpp>
 #include "../Entities/Container.h"
 #include "../Entities/Bullet.h"
@@ -16,14 +16,15 @@ namespace Cosmo::Utils {
     public:
         struct Parameters {
             Parameters(const sol::table& lua):
-                bullet{ Info::ResourcesStorage::get<Entities::Bullet::Parameters>(lua["bullet"]) } {
+                bullet{ lua["bullet"].get<sol::table>() } {
                 reload = lua.get_or("reload", 1.);
                 degrees = lua.get_or("degrees", 1.);
-                position.x = lua["position"]["x"];
-                position.y = lua["position"]["y"];
+                auto positiont = lua["position"];
+                position.x = positiont["x"].get<float>();
+                position.y = positiont["y"].get<float>();
             }
 
-            const Entities::Bullet::Parameters& bullet;
+            const Entities::Bullet::Parameters bullet;
             float reload;
             float degrees;
             sf::Vector2f position;
@@ -74,7 +75,7 @@ namespace Cosmo::Utils {
                     dir);
         }
 
-        const Entities::Bullet::Parameters& bullet;
+        const Entities::Bullet::Parameters bullet;
         const Entities::Starship& owner;
         sf::Vector2f position;
         sf::Vector2f dir;
