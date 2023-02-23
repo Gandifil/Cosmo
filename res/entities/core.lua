@@ -13,7 +13,10 @@ this = {
     down = 100,
     side = 100,
     weapon = {
-        bullet = "entities/coreBullet.lua",
+        bullet = {
+            speed = 100,
+            texture = "textures/plasmaBall.png"
+        },
         reload = 5,
         degrees = 90.,
         position = {x = 0, y = 0}

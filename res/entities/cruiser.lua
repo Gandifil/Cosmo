@@ -20,7 +20,7 @@ this = {
         },
         reload = 0.25,
         degrees = -90.,
-        position = {0, -120}
+        position = {x = 0, y = -120}
     },
     rightWeapon = {
         bullet = {
