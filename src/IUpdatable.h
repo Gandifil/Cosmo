@@ -10,6 +10,7 @@
 namespace Cosmo {
     class IUpdatable {
     public:
+        virtual ~IUpdatable() = default;
         virtual void update(sf::Time dt) = 0;
     };
 }
