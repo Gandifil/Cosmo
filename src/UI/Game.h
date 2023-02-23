@@ -20,7 +20,7 @@ namespace Cosmo
             {
 		        Parameters() {
                     sf::Vector2f point{800, 640};
-                    auto player = Entities::Container::instance().add<Entities::Mothership>("entities/mothership.lua", point);
+                    auto player = Entities::Container::instance().add<Entity::Cruiser>("entities/cruiser.lua", point);
                     controlInit1 = new Control::Keyboard{*player};
                     cruiser = player;
                 }
