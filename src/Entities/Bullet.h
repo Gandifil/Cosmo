@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#include <TGUI/Vector2f.hpp>
+#include <tgui/Vector2.hpp>
 #include "IDestroyable.h"
 #include "EntitySprite.h"
 #include "../Utils/Trajectory.h"

@@ -5,7 +5,7 @@
 #define VECTOR_UTILS
 
 #include <math.h>
-#include <TGUI/Vector2f.hpp>
+#include <TGUI/Vector2.hpp>
 
 namespace Cosmo::Utils {
     template<typename T>
